@@ -9,6 +9,8 @@
 import Board from "@/components/board.vue";
 import Dice from "@/components/dice.vue";
 export default {
+  name: 'game-view',
+
   components:{
     "board": Board,
     "dice" : Dice
