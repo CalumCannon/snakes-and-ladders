@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="">
+    <input style="position: absolute; top: 0px;" v-bind="position" type="number"  value=1>
     <canvas id="myCanvas" width="600" height="600"></canvas>
     <div class="table-container">
     <table id="bg-table">
@@ -57,8 +58,44 @@
 </template>
 
 <script>
+import createRenderer from "../services/canvasRenderer.js";
+
+
 export default {
-  name: 'board'
+  name: 'board',
+  data(){
+    return{
+      position : 0,
+    }
+  },
+  mounted(){
+    const playerOne = new Image();
+    playerOne.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+
+
+    const canvas = document.querySelector('#myCanvas');
+    const ctx =  canvas.getContext("2d");
+    const renderer = createRenderer(canvas,ctx);
+    //let positon = 1;
+
+    function update(progress) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function loop(timestamp) {
+      var progress = timestamp - lastRender;
+
+      update(progress);
+      renderer.drawPlayerOne(playerOne, this.positon);
+      //positon += 0.1;
+
+      lastRender = timestamp;
+      window.requestAnimationFrame(loop);
+    }
+
+    var lastRender = 0
+    window.requestAnimationFrame(loop)
+  }
 }
 </script>
 
@@ -79,10 +116,10 @@ export default {
   display: block;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: 70px;
   left: 0;
   right: 0;
-  border: 10px solid #945a05;
+  border: 10px solid pink;
 }
 
 table{
@@ -95,7 +132,10 @@ th{
   color: white;
   font-size: 2em;
   font-weight: bold;
+  padding: 0px;
 }
+
+
 
 .even{
   background-color: white;
