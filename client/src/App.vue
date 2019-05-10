@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <welcome/>
     <gameview/>
   </div>
 </template>
 
 <script>
 import GameView from './views/gameview.vue';
+import WelcomeView from './views/welcomeview.vue';
 
 export default {
   name: 'app',
   components: {
-   "gameview" :  GameView
+   "gameview" :  GameView,
+   "welcome" : WelcomeView
   }
 }
 </script>
