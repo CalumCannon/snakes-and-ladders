@@ -24,6 +24,8 @@
       
       <input type="radio" value="https://img.icons8.com/color/48/000000/guest-male.png" v-model="avatar">
       <img src="https://img.icons8.com/color/48/000000/guest-male.png"></input>
+      
+      <button type="button" name="button" v-on:click="addNewPlayer()">Add Player</button>
     
     </form>
   </div>
@@ -31,6 +33,7 @@
 
 <script>
 import GamesService from '@/services/gameService';
+import { eventBus } from '@/main.js';
 
 export default {
   name: 'create-new-player',
@@ -49,8 +52,8 @@ export default {
   methods: {
     addNewPlayer: function(){
       const player = {name: this.name, avatar: this.avatar}
-      GamesService.FUNCTIONNAMEHERE(player)
-      .then()
+      GamesService.postPlayers(player)
+      .then((res) => eventBus.$emit('add-player', res))
     }
   }
 }
