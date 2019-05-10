@@ -14,7 +14,7 @@ MongoClient.connect('mongodb://localhost:27017')
   const db = client.db('snakes_and_ladders');
   const playerCollection = db.collection('players');
   const playerRouter = createRouter(playerCollection);
-  app.use('api/players', playerRouter );
+  app.use('/api/players', playerRouter );
 }).catch(console.err);
 
 
