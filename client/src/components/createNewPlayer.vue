@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import GamesService from '@/services/gameService';
+
 export default {
   name: 'create-new-player',
   
@@ -37,6 +39,18 @@ export default {
     return {
       name: "",
       avatar: ""
+    }
+  },
+  
+  components:{
+    GamesService
+  },
+  
+  methods: {
+    addNewPlayer: function(){
+      const player = {name: this.name, avatar: this.avatar}
+      GamesService.FUNCTIONNAMEHERE(player)
+      .then()
     }
   }
 }
