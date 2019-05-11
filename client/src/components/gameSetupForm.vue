@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+// <script>
 import { eventBus } from '@/main.js';
 import GameService from '@/services/gameService.js';
 import GameView from '@/views/gameview.vue';

@@ -22,14 +22,14 @@ export default {
   methods: {
     changePlayer(){
       if (this.playerTurn === this.playerOne){
-        playerTurn = playerTwo
+        this.playerTurn = playerTwo
       }
       else { this.playerTurn = this.playerOne }
     }
   },
   
   mounted(){
-    // eventBus.$on('change-player', changePlayer());
+    eventBus.$on('change-player', this.changePlayer);
   }
   
   
