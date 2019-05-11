@@ -15,21 +15,21 @@ export default {
   
   data(){
     return {
-      playerTurn: this.playerOne
+      playerTurn: playerOne
     }
   },
   
   methods: {
     changePlayer(){
-      if (this.playerTurn === this.playerOne){
-        this.playerTurn = playerTwo
+      if (playerTurn === playerOne){
+        playerTurn = playerTwo
       }
-      else { this.playerTurn = this.playerOne }
+      else { playerTurn = playerOne }
     }
   },
   
   mounted(){
-    eventBus.$on('change-player', this.changePlayer);
+    eventBus.$on('change-player', changePlayer())
   }
   
   
