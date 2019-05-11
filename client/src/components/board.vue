@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    <input style="position: absolute; top: 0px;" v-bind="position" type="number"  value=1>
+    <input style="position: absolute; top: 0px;" v-model="position" v-on:input="updatePosition" type="number">
     <canvas id="myCanvas" width="600" height="600"></canvas>
     <div class="table-container">
     <table id="bg-table">
@@ -65,36 +65,28 @@ export default {
   name: 'board',
   data(){
     return{
-      position : 0,
+      position : 1,
+      playerOne : new Image()
     }
   },
   mounted(){
-    const playerOne = new Image();
-    playerOne.src = "https://img.icons8.com/color/48/000000/guest-male.png";
 
+    //Get players avitars here
+    this.playerOne.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    this.updatePosition();
 
-    const canvas = document.querySelector('#myCanvas');
-    const ctx =  canvas.getContext("2d");
-    const renderer = createRenderer(canvas,ctx);
-    //let positon = 1;
+  },
 
-    function update(progress) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  methods:{
+    updatePosition(){
+      console.log("POSITION UPDATE");
+
+      const canvas = document.querySelector('#myCanvas');
+      const ctx =  canvas.getContext("2d");
+      const renderer = createRenderer(canvas,ctx);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      renderer.drawPlayerOne(this.playerOne, this.position);
     }
-
-    function loop(timestamp) {
-      var progress = timestamp - lastRender;
-
-      update(progress);
-      renderer.drawPlayerOne(playerOne, this.positon);
-      //positon += 0.1;
-
-      lastRender = timestamp;
-      window.requestAnimationFrame(loop);
-    }
-
-    var lastRender = 0
-    window.requestAnimationFrame(loop)
   }
 }
 </script>
