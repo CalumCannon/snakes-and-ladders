@@ -56,7 +56,7 @@ export default {
   mounted(){
     this.fetchPlayers();
     
-    eventBus.$on('add-player', this.fetchPlayers())
+    eventBus.$on('add-player', this.fetchPlayers);
   }
 }
 </script>

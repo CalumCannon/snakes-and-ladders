@@ -25,15 +25,18 @@
       <input type="radio" value="https://img.icons8.com/color/48/000000/guest-male.png" v-model="avatar">
       <img src="https://img.icons8.com/color/48/000000/guest-male.png"></input>
       
-      <button type="button" name="button" v-on:click="addNewPlayer">Add New Player</button>
+      <button type="button" name="button" v-on:click="addNewPlayer()">Add New Player</button>
     
     </form>
+    
+    <modal v-show="visibleModal" v-on:close="hideModal"/>
   </div>
 </template>
 
 <script>
 import GameService from '@/services/gameService';
 import { eventBus } from '@/main.js';
+import Modal from '@/components/newPlayerModal.vue';
 
 export default {
   name: 'create-new-player',
@@ -41,17 +44,20 @@ export default {
   data(){
     return {
       name: "",
-      avatar: ""
+      avatar: "",
+      visibleModal: false
     }
   },
   
-  // components:{
-  //   GameService
-  // },
+  components:{
+    GameService,
+    'modal': Modal
+  },
   
   methods: {
-    addNewPlayer: function(event){
+    addNewPlayer: function(){
       event.preventDefault()
+      this.showModal()
       const player = {
         name: this.name,
         wins: 0,
@@ -59,7 +65,17 @@ export default {
         avatar: this.avatar
       }
       GameService.postPlayers(player)
-      .then((res) => eventBus.$emit('add-player', res))
+      .then((res) => {
+        eventBus.$emit('add-player', res)
+      })
+    },
+    
+    showModal: function(){
+      this.visibleModal = true
+    },
+    
+    hideModal: function(){
+      this.visibleModal = false
     }
   }
 }
