@@ -1,4 +1,5 @@
-const badeURL ='http://localhost:3000/api/players/'
+const baseURL = 'http://localhost:3000/api/players/';
+
 export default {
   getPlayers(){
     return fetch(baseURL)
@@ -17,4 +18,4 @@ export default {
       method:'DELETE'
     })
   }
-}
+};

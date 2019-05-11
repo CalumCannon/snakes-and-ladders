@@ -51,7 +51,12 @@ export default {
   
   methods: {
     addNewPlayer: function(){
-      const player = {name: this.name, avatar: this.avatar}
+      const player = {
+        name: this.name,
+        wins: 0,
+        losses: 0,
+        avatar: this.avatar
+      }
       GamesService.postPlayers(player)
       .then((res) => eventBus.$emit('add-player', res))
     }

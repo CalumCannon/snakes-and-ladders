@@ -34,14 +34,14 @@ export default {
   },
   
   components: {
-    GameService,
+    'game-service': GameService,
     'game-view': GameView
   },
   
   methods: {
     fetchPlayers(){
       gameService.getPlayers()
-      .then((players) => this.players)
+      .then((players) => this.players = players)
     }
   },
   
