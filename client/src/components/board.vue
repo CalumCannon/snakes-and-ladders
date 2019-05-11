@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="">
-    <input style="position: absolute; top: 0px;" v-model="position" v-on:input="updatePosition" type="number">
+    <input style="position: absolute; top: 0px;" v-model="positionP1" v-on:input="updatePosition" type="number">
+    <input style="position: absolute; top: 20px;" v-model="positionP2" v-on:input="updatePosition" type="number">
     <canvas id="myCanvas" width="600" height="600"></canvas>
     <div class="table-container">
     <table id="bg-table">
@@ -65,14 +66,18 @@ export default {
   name: 'board',
   data(){
     return{
-      position : 1,
-      playerOne : new Image()
+      positionP1 : 1,
+      positionP2 : 1,
+      playerOne : new Image(),
+      playerTwo : new Image()
     }
   },
   mounted(){
 
     //Get players avitars here
     this.playerOne.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    this.playerTwo.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+
     this.updatePosition();
 
   },
@@ -85,7 +90,8 @@ export default {
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      renderer.drawPlayerOne(this.playerOne, this.position);
+      renderer.drawPlayer(this.playerOne, this.positionP1);
+      renderer.drawPlayer(this.playerTwo, this.positionP2, 10);
     }
   }
 }
@@ -111,7 +117,7 @@ export default {
   bottom: 70px;
   left: 0;
   right: 0;
-  border: 10px solid pink;
+  border: 1px solid pink;
 }
 
 table{

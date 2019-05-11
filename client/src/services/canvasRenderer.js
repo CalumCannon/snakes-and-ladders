@@ -2,7 +2,7 @@ const createRenderer = function(canvasElement, context) {
 
   const renderer = {
 
-    drawPlayerOne(img, position){
+    drawPlayer(img, position, offset = 0){
       //Lower Limit
       if(position < 1){
         position = 1;
@@ -26,9 +26,9 @@ const createRenderer = function(canvasElement, context) {
 
       //Alternates the x position
       if(y % 2 == 1){
-      ctx.drawImage(img,500 - ((x-1)*100),  (y*-100) + 500);
+      ctx.drawImage(img,500 - ((x-1)*100),  ((y*-100) + 500) + offset);
       }else{
-      ctx.drawImage(img,((x-1)*100),  (y*-100) + 500);
+      ctx.drawImage(img,((x-1)*100),  ((y*-100) + 500) + offset);
       }
 
     }
