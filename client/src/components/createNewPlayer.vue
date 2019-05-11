@@ -1,14 +1,14 @@
 <template lang="html">
   <div>
     <h3>Add A New Player</h3>
-    <form action="index.html" method="post">
+    <form method="post">
       <label for="name">Player name: </label>
       <input type="text" v-model:name="name"></input>
       
       <label for="avatar">Choose an Avatar: </label>
       
       <input type="radio" value="https://img.icons8.com/color/48/000000/jake.png" v-model="avatar">
-      <img src="https://img.icons8.com/color/48/000000/jake.png">"</input>
+      <img src="https://img.icons8.com/color/48/000000/jake.png"></input>
       
       <input type="radio" value="https://img.icons8.com/color/48/000000/batman.png" v-model="avatar">
       <img src="https://img.icons8.com/color/48/000000/batman.png"></input>
@@ -25,14 +25,14 @@
       <input type="radio" value="https://img.icons8.com/color/48/000000/guest-male.png" v-model="avatar">
       <img src="https://img.icons8.com/color/48/000000/guest-male.png"></input>
       
-      <button type="button" name="button" v-on:click="addNewPlayer()">Add Player</button>
+      <button type="button" name="button" v-on:click="addNewPlayer">Add New Player</button>
     
     </form>
   </div>
 </template>
 
 <script>
-import GamesService from '@/services/gameService';
+import GameService from '@/services/gameService';
 import { eventBus } from '@/main.js';
 
 export default {
@@ -45,19 +45,20 @@ export default {
     }
   },
   
-  components:{
-    GamesService
-  },
+  // components:{
+  //   GameService
+  // },
   
   methods: {
-    addNewPlayer: function(){
+    addNewPlayer: function(event){
+      event.preventDefault()
       const player = {
         name: this.name,
         wins: 0,
         losses: 0,
         avatar: this.avatar
       }
-      GamesService.postPlayers(player)
+      GameService.postPlayers(player)
       .then((res) => eventBus.$emit('add-player', res))
     }
   }

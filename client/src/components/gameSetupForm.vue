@@ -2,14 +2,23 @@
   <div>
     
     <form action="index.html" method="post">
+      
       <label for="player-select">Select Player One</label>
-      <select class="" name="">
-        <option v-for="(player, index) in players" value="player.name" v-model="playerOne">{{player.name}}  {{player.avatar}}</option>
+      <select v-model="playerOne">
+        <option selected disabled>Player One</option>
+        <option v-for="(player, index) in players">
+          {{player.name}}
+        </option>
+        
       </select>
       <label for="playerTwo-select">Select Player Two</label>
-      <select class="" name="">
-        <option v-for="(player, index) in players" value="player.name" v-model="playerTwo">{{player.name}}  {{player.avatar}}</option>
+      <select v-model="playerTwo">
+        <option selected disabled>Player Two</option>
+        <option v-for="(player, index) in players">
+          {{player.name}}
+        </option>
       </select>
+      
     </form>
     
     <router-link :to="{ name: 'game-view', params: {playerOne, playerTwo} }">START GAME</router-link>
@@ -34,13 +43,12 @@ export default {
   },
   
   components: {
-    'game-service': GameService,
     'game-view': GameView
   },
   
   methods: {
     fetchPlayers(){
-      gameService.getPlayers()
+      GameService.getPlayers()
       .then((players) => this.players = players)
     }
   },
@@ -48,7 +56,7 @@ export default {
   mounted(){
     this.fetchPlayers();
     
-    eventBus.$on('add-player', this.fetchPlayers());
+    eventBus.$on('add-player', this.fetchPlayers())
   }
 }
 </script>

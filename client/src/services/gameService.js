@@ -11,7 +11,7 @@ export default {
       body: JSON.stringify(newplayer),
       headers: { 'Content-Type': 'application/json'}
     })
-    .then(res =>res.json())
+    .then(res => res.json())
   },
   deletePlayers(id){
     return fetch(baseURL + id,{

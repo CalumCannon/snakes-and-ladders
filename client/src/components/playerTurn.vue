@@ -29,7 +29,7 @@ export default {
   },
   
   mounted(){
-    eventBus.$on('change-player', changePlayer());
+    // eventBus.$on('change-player', changePlayer());
   }
   
   
