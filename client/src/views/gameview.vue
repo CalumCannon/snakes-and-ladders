@@ -1,19 +1,19 @@
 <template lang="html">
 <div class="">
 <board/>
-<dice/>
+<rollDice/>
 </div>
 </template>
 
 <script>
 import Board from "@/components/board.vue";
-import Dice from "@/components/dice.vue";
+import RollDice from "@/components/rollDice.vue";
 export default {
   name: 'game-view',
 
   components:{
     "board": Board,
-    "dice" : Dice
+    "rollDice" : RollDice
   }
 }
 </script>
