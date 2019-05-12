@@ -15,7 +15,8 @@ export default {
   
   data(){
     return {
-      playerTurn: this.playerOne
+      playerTurn: this.playerOne,
+      startGame: true
     }
   },
   
@@ -31,7 +32,12 @@ export default {
   
   mounted(){
     // eventBus to be sent from board component after move completed?
-    eventBus.$on('change-player', this.changePlayer())
+    eventBus.$on('change-player', () => {
+      if (!startGame){
+        this.changePlayer()
+      }
+      this.startGame = false
+    })
   }
   
   
