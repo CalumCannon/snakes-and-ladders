@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { eventBus } from '@/main.js';
 
 export default {
   name: 'roll-dice',
@@ -20,6 +21,7 @@ export default {
     diceRoll(start, range) {
       const  randomNum = Math.floor( Math.random() * range ) + start;
         console.log(randomNum);
+        eventBus.$emit('dice-rolled', randomNum);
         return randomNum;
     }
   }
