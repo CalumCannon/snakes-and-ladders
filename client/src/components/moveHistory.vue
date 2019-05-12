@@ -1,0 +1,54 @@
+<template lang="html">
+  <div class="">
+    <p v-for="move in moveHistory">{{move}}</p>
+  </div>
+</template>
+
+<script>
+import { eventBus } from '@/main.js';
+
+export default {
+  name: 'move-history',
+  
+  props: ['playerOne', 'playerTwo'],
+  
+  data(){
+    return{
+      currentPlayer: "",
+      diceRoll: "",
+      move: "",
+      moveHistory: [],
+      ladder: false,
+      snake: false
+    }
+  },
+  
+  methods:{
+    noteMove: function(){
+      this.move = `${this.currentPlayer} rolled a ${diceRoll}`
+      if (this.ladder){
+        this.move = this.move + "and climbed a ladder!"
+      }
+      else if (this.snake){
+        this.move = this.move + "and fell down a snake"
+      }
+      this.moveHistory << this.move
+    }
+  },
+  
+  
+  // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
+  mounted(){
+    eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
+    
+    // eventBus.$on(MOVE NAME HERE!!!!!!, this.ladder = true);
+    //
+    // eventBus.$on(MOVE NAME HERE!!!!!!, this.snake = true);
+    
+    eventBus.$on('current-player', (playerTurn) => this.currentPlayer = playerTurn)
+  }
+}
+</script>
+
+<style lang="css" scoped>
+</style>

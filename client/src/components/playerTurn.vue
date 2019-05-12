@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <h3 v-if="playerTurn === playerOne">{{playerOne}}'s turn</h3>
-    <h3 v-if="playerTurn === playerTwo">{{playerTwo}}'s turn</h3>
+    <h3 v-if="this.playerTurn === this.playerOne">{{playerOne}}'s turn</h3>
+    <h3 v-if="this.playerTurn === this.playerTwo">{{playerTwo}}'s turn</h3>
   </div>
 </template>
 
@@ -15,22 +15,23 @@ export default {
   
   data(){
     return {
-      playerTurn: playerOne
+      playerTurn: this.playerOne
     }
   },
   
   methods: {
     changePlayer(){
-      if (playerTurn === playerOne){
-        playerTurn = playerTwo
+      if (this.playerTurn === this.playerOne){
+        this.playerTurn = this.playerTwo
       }
-      else { playerTurn = playerOne }
+      else { this.playerTurn = this.playerOne }
+      eventBus.$emit('current-player', this.playerTurn)
     }
   },
   
   mounted(){
     // eventBus to be sent from board component after move completed?
-    eventBus.$on('change-player', changePlayer())
+    eventBus.$on('change-player', this.changePlayer())
   }
   
   
