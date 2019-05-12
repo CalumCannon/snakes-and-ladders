@@ -2,7 +2,7 @@ const createRenderer = function(canvasElement, context) {
 
   const renderer = {
 
-    drawPlayer(img, position, offset = 0){
+    drawPlayer(img, position,currentPosition, offset = 0){
       //Lower Limit
       if(position < 1){
         position = 1;
@@ -11,6 +11,16 @@ const createRenderer = function(canvasElement, context) {
       if(position > 36){
         position = 36;
       }
+
+      //Move one square at a time
+      if(position > currentPosition){
+        position = currentPosition + 1;
+        //setTimeout(drawPlayer(img,currentPosition, position, offset), 5000);
+        setTimeout(() => {
+          console.log("TICK");
+        }, 5000);
+      }
+
       //Canvas
       var canvas = canvasElement;
       var ctx = context;
@@ -31,6 +41,7 @@ const createRenderer = function(canvasElement, context) {
       ctx.drawImage(img,((x-1)*100),  ((y*-100) + 500) + offset);
       }
 
+      return currentPosition + 1;
     }
 
   }

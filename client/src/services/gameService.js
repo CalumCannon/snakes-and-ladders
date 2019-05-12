@@ -1,4 +1,5 @@
-const badeURL ='http://localhost:3000/api/players/'
+const baseURL = 'http://localhost:3000/api/players/';
+
 export default {
   getPlayers(){
     return fetch(baseURL)
@@ -10,11 +11,11 @@ export default {
       body: JSON.stringify(newplayer),
       headers: { 'Content-Type': 'application/json'}
     })
-    .then(res =>res.json())
+    .then(res => res.json())
   },
   deletePlayers(id){
     return fetch(baseURL + id,{
       method:'DELETE'
     })
   }
-}
+};

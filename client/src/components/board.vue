@@ -73,6 +73,8 @@ export default {
     }
   },
   mounted(){
+    this.playerOne.currentPosition = 1;
+    this.playerTwo.currentPosition = 1;
 
     //Get players avitars here
     this.playerOne.src = "https://img.icons8.com/color/48/000000/guest-male.png";
@@ -90,8 +92,8 @@ export default {
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      renderer.drawPlayer(this.playerOne, this.positionP1);
-      renderer.drawPlayer(this.playerTwo, this.positionP2, 10);
+      this.playerOne.currentPosition = renderer.drawPlayer(this.playerOne, this.positionP1, this.playerOne.currentPosition);
+      this.playerTwo.currentPosition = renderer.drawPlayer(this.playerTwo, this.positionP2,this.playerTwo.currentPosition, 10);
     }
   }
 }
