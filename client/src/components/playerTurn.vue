@@ -29,6 +29,7 @@ export default {
   },
   
   mounted(){
+    // eventBus to be sent from board component after move completed?
     eventBus.$on('change-player', changePlayer())
   }
   
