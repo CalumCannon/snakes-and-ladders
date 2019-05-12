@@ -25,7 +25,7 @@ export default {
   
   methods:{
     noteMove: function(){
-      this.move = `${this.currentPlayer} rolled a ${diceRoll}`
+      this.move = `${this.currentPlayer.name} rolled a ${diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
         this.ladder = false

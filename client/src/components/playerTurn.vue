@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <h3 v-if="this.playerTurn === this.playerOne">{{playerOne}}'s turn</h3>
-    <h3 v-if="this.playerTurn === this.playerTwo">{{playerTwo}}'s turn</h3>
+    <h3 v-if="this.playerTurn === this.playerOne">{{playerOne.name}}'s turn</h3>
+    <h3 v-if="this.playerTurn === this.playerTwo">{{playerTwo.name}}'s turn</h3>
   </div>
 </template>
 
