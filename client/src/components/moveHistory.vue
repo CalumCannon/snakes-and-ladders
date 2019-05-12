@@ -28,9 +28,11 @@ export default {
       this.move = `${this.currentPlayer} rolled a ${diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
+        this.ladder = false
       }
       else if (this.snake){
         this.move = this.move + "and fell down a snake"
+        this.snake = false
       }
       this.moveHistory << this.move
     }
@@ -39,13 +41,13 @@ export default {
   
   // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
+    eventBus.$on('current-player', (playerTurn) => this.currentPlayer = playerTurn)
+        
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
     
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.ladder = true);
     //
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.snake = true);
-    
-    eventBus.$on('current-player', (playerTurn) => this.currentPlayer = playerTurn)
   }
 }
 </script>
