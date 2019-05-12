@@ -1,13 +1,14 @@
 <template lang="html">
-  <div class="">
-    <board/>
-    <player-turn :playerOne="playerOne" :playerTwo="playerTwo"/>
-  </div>
+<div class="">
+<board/>
+<rollDice/>
+<player-turn :playerOne="playerOne" :playerTwo="playerTwo"/>
+</div>
 </template>
 
 <script>
 import Board from "@/components/board.vue";
-import PlayerTurn from '@/components/playerTurn.vue';
+import RollDice from "@/components/rollDice.vue";
 export default {
   name: 'game-view',
   
@@ -15,7 +16,7 @@ export default {
   
   components:{
     "board": Board,
-    "player-turn": PlayerTurn
+    "rollDice" : RollDice
   }
 }
 </script>
