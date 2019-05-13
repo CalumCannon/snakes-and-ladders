@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="history">
     <p v-for="move in moveHistory">{{move}}</p>
   </div>
 </template>
@@ -23,8 +23,8 @@ export default {
   
   methods:{
     noteMove: function(player){
-      this.currentPlayer = player
-      this.move = `${this.currentPlayer} rolled a ${this.diceRoll}`
+      // this.currentPlayer = player
+      this.move = `${player} rolled a ${this.diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
         this.ladder = false
@@ -34,6 +34,13 @@ export default {
         this.snake = false
       }
       this.moveHistory.push(this.move)
+    }
+  },
+  
+  computed: {
+    scrollBox: function(){
+      const box = document.querySelector(".history")
+      box.scrollTop = 999
     }
   },
   
@@ -52,4 +59,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.history {
+  text-align: left;
+  max-height: 250px;
+  width: 200px;
+  border: 1px solid silver;
+  overflow: auto;
+}
 </style>

@@ -12,13 +12,11 @@ import Modal from '@/components/playerTurnModal.vue';
 export default {
   name: 'player-turn',
   
-  props: ['chosenPlayers'],
+  props: ['playerOne'],
   
   data(){
     return {
-      currentIndex: 0,
-      startGame: true,
-      playerTurn: this.chosenPlayers[0],
+      playerTurn: this.playerOne,
       visibleModal: false
     }
   },
@@ -49,8 +47,8 @@ export default {
   
   mounted(){
     eventBus.$on('next-player', (nextPlayer) => {
-      console.log(nextPlayer);
-      // {this.changePlayer(nextPlayer.nickname)}
+      console.log(nextPlayer.nickname)
+      this.changePlayer(nextPlayer.nickname)
     })
   }
   

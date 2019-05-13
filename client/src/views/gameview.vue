@@ -2,7 +2,7 @@
 <div class="">
 <board :selectedPlayers="this.chosenPlayers"/>
 <rollDice/>
-<player-turn :chosenPlayers="this.chosenPlayers"/>
+<player-turn :playerOne="this.chosenPlayers[0]"/>
 <move-history/>
 </div>
 </template>
