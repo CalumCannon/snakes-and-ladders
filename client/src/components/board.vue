@@ -65,49 +65,31 @@ export default {
   props: ['selectedPlayers'],
   data(){
     return{
-      positionP1 : 1,
-      positionP2 : 1,
-      playerOneImg : new Image(),
-      playerTwoImg : new Image(),
-      currentPlayerIndex: 0,
-      playerOne : new Player(),
-      playerTwo : new Player(),
+      currentPlayerIndex: -1,
       currentPlayer : "",
       players : []
     }
   },
   mounted(){
-    //this.players[0] = (this.playerOne);
-    //this.players[1] = (this.playerTwo);
-
-    //this.playerOne.currentPosition = 1;
-    //this.playerTwo.currentPosition = 1;
-
-    //this.playerOnePosition = this.positionP1;
-
-    //Get players avitars here
-    //this.playerOneImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    //this.playerOne.img = this.playerOneImg;
-    //this.playerTwoImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    //this.playerTwo.img = this.playerTwoImg;
-
+    //Create Player Objects
     this.initPlayerObjects();
 
+    //Delayed render : so that players display before rolling dice
     setTimeout(() => {
       this.renderPlayers();
     }, 500);
 
+    //Dice rolled event
     eventBus.$on('dice-rolled', (randomNum) => {
       console.log("THIS: ", this);
      this.diceRolled(randomNum);
     })
 
-    //Event for player turn end
-    //player-turn-completed
-
   },
   methods:{
     renderCanvas(){
+
+      //Canvas init
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
@@ -115,20 +97,24 @@ export default {
       //Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      //if(this.currentPlayer){
-        if(!this.currentPlayer.reachedTarget()){
-          setTimeout(() => {
-            this.currentPlayer.moveForward();
-            this.renderCanvas();
-          }, 1000);
-        }else{
-          console.log("PLAYER REACHED TARGET ", this.currentPlayer);
 
-          eventBus.$emit('player-turn-completed', this.currentPlayer);
-          eventBus.$emit('next-player', this.returnNextPlayer());
+      if(!this.currentPlayer.reachedTarget()){
+        //Delayed player move
+        setTimeout(() => {
+          this.currentPlayer.moveForward();
+          this.renderCanvas();
+        }, 1000);
 
-        }
-      //}
+      }else{
+
+        console.log("PLAYER REACHED TARGET ", this.currentPlayer);
+        //ERROR: this is firing twice
+        eventBus.$emit('player-turn-completed', this.currentPlayer);
+        //Check this
+        eventBus.$emit('next-player', this.returnNextPlayer());
+
+      }
+
       this.renderPlayers();
 
     },
@@ -151,13 +137,15 @@ export default {
     },
 
     returnCurrentPlayer(){
+      this.currentPlayerIndex++;
+
       if(this.currentPlayerIndex >= this.players.length){
         this.currentPlayerIndex = 0;
       }
       console.log("RETURNING: ", this.players[this.currentPlayerIndex]);
       let current = this.players[this.currentPlayerIndex];
 
-      this.currentPlayerIndex++;
+
 
       return current;
     },
