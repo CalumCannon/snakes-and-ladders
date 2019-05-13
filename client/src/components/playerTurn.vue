@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <modal :currentPlayer="playerTurn.name" v-show="visibleModal" v-on:close="hideModal"/>
+    <modal :currentPlayer="this.playerTurn.name" v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn.name}}'s turn</h3>
   </div>
 </template>
