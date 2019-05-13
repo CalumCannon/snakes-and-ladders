@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="">
-    <input style="position: absolute; top: 0px;" v-model="positionP1" v-on:input="updatePosition" type="number">
-    <input style="position: absolute; top: 20px;" v-model="positionP2" v-on:input="updatePosition" type="number">
     <canvas id="myCanvas" width="600" height="600"></canvas>
     <div class="table-container">
     <table id="bg-table">
@@ -60,41 +58,95 @@
 
 <script>
 import createRenderer from "../services/canvasRenderer.js";
-
-
+import { eventBus } from '@/main.js';
+import Player from '@/services/player.js'
 export default {
   name: 'board',
   data(){
     return{
       positionP1 : 1,
       positionP2 : 1,
-      playerOne : new Image(),
-      playerTwo : new Image()
+      playerOneImg : new Image(),
+      playerTwoImg : new Image(),
+      players : [],
+      currentPlayerIndex: 0,
+      playerOne : new Player(),
+      playerTwo : new Player(),
+      currentPlayer : "",
     }
   },
   mounted(){
+    this.players[0] = (this.playerOne);
+    this.players[1] = (this.playerTwo);
+
     this.playerOne.currentPosition = 1;
     this.playerTwo.currentPosition = 1;
 
-    //Get players avitars here
-    this.playerOne.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    this.playerTwo.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    //this.playerOnePosition = this.positionP1;
 
-    this.updatePosition();
+    //Get players avitars here
+    this.playerOneImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    this.playerOne.img = this.playerOneImg;
+    this.playerTwoImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    this.playerTwo.img = this.playerTwoImg;
+
+    //this.renderCanvas();
+
+    eventBus.$on('dice-rolled', (randomNum) => {
+     this.diceRolled(randomNum);
+    })
+
+    //Event for player turn end
+    //player-turn-completed
 
   },
-
   methods:{
-    updatePosition(){
-      console.log("POSITION UPDATE");
-
+    renderCanvas(){
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
+      //Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.playerOne.currentPosition = renderer.drawPlayer(this.playerOne, this.positionP1, this.playerOne.currentPosition);
-      this.playerTwo.currentPosition = renderer.drawPlayer(this.playerTwo, this.positionP2,this.playerTwo.currentPosition, 10);
+
+      //if(this.currentPlayer){
+        if(!this.currentPlayer.reachedTarget()){
+          setTimeout(() => {
+            this.currentPlayer.moveForward();
+            this.renderCanvas();
+          }, 1000);
+        }else{
+          console.log("PLAYER REACHED TARGET ", this.currentPlayer);
+
+          eventBus.$emit('player-turn-completed', this.currentPlayer);
+        }
+      //}
+
+      renderer.renderPlayer(this.playerOne);
+      renderer.renderPlayer(this.playerTwo, 10);
+
+    },
+
+    diceRolled(randomNum){
+      //Do end game checks here
+      this.currentPlayer = this.returnCurrentPlayer();
+
+      this.currentPlayer.diceRolled(randomNum);
+
+      console.log("PLAYER: " , this.currentPlayer , " ROLLED: " , randomNum);
+
+      this.renderCanvas();
+    },
+
+    returnCurrentPlayer(){
+      this.currentPlayerIndex++;
+
+      if(this.currentPlayerIndex > this.players.length){
+        this.currentPlayerIndex = 0;
+      }
+
+      return this.players[this.currentPlayerIndex];
     }
+
   }
 }
 </script>
@@ -119,7 +171,7 @@ export default {
   bottom: 70px;
   left: 0;
   right: 0;
-  border: 1px solid pink;
+  /**border: 1px solid pink;**/
 }
 
 table{
@@ -133,13 +185,14 @@ th{
   font-size: 2em;
   font-weight: bold;
   padding: 0px;
-}
 
+}
 
 
 .even{
   background-color: white;
   color: green;
+  border: 5px solid #cacaca;
 }
 
 </style>
