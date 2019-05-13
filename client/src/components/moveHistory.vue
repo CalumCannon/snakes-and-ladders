@@ -13,7 +13,7 @@ export default {
   data(){
     return{
       currentPlayer: "",
-      diceRoll: "",
+      diceRoll: 0,
       move: "",
       moveHistory: [],
       ladder: false,
@@ -24,7 +24,7 @@ export default {
   methods:{
     noteMove: function(nextPlayer){
       this.currentPlayer = nextPlayer
-      this.move = `${this.currentPlayer.name} rolled a ${diceRoll}`
+      this.move = `${this.currentPlayer.name} rolled a ${this.diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
         this.ladder = false
