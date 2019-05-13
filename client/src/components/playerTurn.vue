@@ -1,42 +1,57 @@
 <template lang="html">
   <div>
-    <h3 v-if="this.playerTurn === this.playerOne">{{playerOne.name}}'s turn</h3>
-    <h3 v-if="this.playerTurn === this.playerTwo">{{playerTwo.name}}'s turn</h3>
+    <modal :currentPlayer="this.playerTurn.name" v-show="visibleModal" v-on:close="hideModal"/>
+    <h3>{{this.playerTurn.name}}'s turn</h3>
   </div>
 </template>
 
 <script>
 import { eventBus } from '@/main.js';
+import Modal from '@/components/playerTurnModal.vue';
 
 export default {
   name: 'player-turn',
   
-  props: ['playerOne', 'playerTwo'],
+  props: ['chosenPlayers'],
   
   data(){
     return {
-      playerTurn: this.playerOne,
-      startGame: true
+      currentIndex: 0,
+      startGame: true,
+      playerTurn: this.chosenPlayers[0],
+      visibleModal: false
     }
   },
   
+  components: {
+    'modal': Modal
+  },
+  
   methods: {
-    changePlayer(){
-      if (this.playerTurn === this.playerOne){
-        this.playerTurn = this.playerTwo
+    changePlayer: function(){
+      if (this.currentIndex === this.chosenPlayers.length){
+        this.currentIndex = 0
       }
-      else { this.playerTurn = this.playerOne }
-      eventBus.$emit('current-player', this.playerTurn)
+      else {this.currentIndex += 1}
+      this.playerTurn = this.chosenPlayers[this.currentIndex]
+      this.showModal()
+    },
+    
+    showModal: function(){
+      this.visibleModal = true
+    },
+    
+    hideModal: function(){
+      this.visibleModal = false
     }
   },
   
   mounted(){
-    // eventBus to be sent from board component after move completed?
-    eventBus.$on('change-player', () => {
-      if (!startGame){
-        this.changePlayer()
+    eventBus.$on('player-turn-completed', (currentPlayer) => {
+      if (this.startGame){
+        this.startGame = false
       }
-      this.startGame = false
+      else {this.changePlayer()}
     })
   }
   

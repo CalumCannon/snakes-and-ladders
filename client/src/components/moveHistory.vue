@@ -10,8 +10,6 @@ import { eventBus } from '@/main.js';
 export default {
   name: 'move-history',
   
-  props: ['playerOne', 'playerTwo'],
-  
   data(){
     return{
       currentPlayer: "",
