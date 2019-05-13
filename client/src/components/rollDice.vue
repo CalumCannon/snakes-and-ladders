@@ -2,9 +2,10 @@
  <div class="rolldice">
    <div id="dice" class="dice"></div>
    <div id="button">
-   <button id="roll" type="button" value="http://clipartmag.com/images/dice-images-1-6-11.jpg" v-on:click="diceRoll(1, 6)">
-          <img src="http://clipartmag.com/images/dice-images-1-6-11.jpg "height="170" width="180"></button>
+   <button id="roll" type="button" value="http://clipartmag.com/images/dice-images-1-6-11.jpg" v-on:click="diceRoll(1, 6)" v-if="!disabled">
+          <img src="http://clipartmag.com/images/dice-images-1-6-11.jpg" height="170" width="180"></button>
  </div>
+
   <!-- here the status holds the result of the roll random number -->
    <h2 id="status" style="clear:right;">{{diceNumber}}</h2>
   </div>
@@ -18,7 +19,12 @@ export default {
   name: 'roll-dice',
   data(){
     return{
-      diceNumber: null
+      diceNumber: null,
+      roll: null,
+      disabled: false,
+      playerOne: "",
+      playerTwo: "",
+
     }
   },
 
@@ -27,11 +33,30 @@ export default {
       const  randomNum = Math.floor( Math.random() * range ) + start;
         console.log(randomNum);
          eventBus.$emit('dice-rolled', randomNum);
-        return randomNum;
-    },
+         this.diceNumber = randomNum;
+          this.disabled = true;
+      },
 
-  }
-}
+       enableRoll(){
+         eventBus.$on('changeplayer-position', () =>  {
+           this.disabled = false;
+          })
+
+       }
+
+
+
+
+       }
+    }
+
+
+
+
+
+
+
+
 
 
 
