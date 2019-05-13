@@ -168,7 +168,7 @@ export default {
         this.currentPlayerIndex = 0;
       }
       return this.players[nextIndex];
-    }
+    },
 
     renderPlayers(){
       const canvas = document.querySelector('#myCanvas');
