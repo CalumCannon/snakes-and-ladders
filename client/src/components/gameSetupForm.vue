@@ -30,6 +30,7 @@
     :clear-on-select="false"
     label="name"
     :hide-selected="true"
+    :track-by="_id"
     :max="6">
     <template slot="option" slot-scope="props">
       <img :src="props.option.avatar">{{props.option.name}}</template>
@@ -64,6 +65,11 @@ export default {
     fetchPlayers(){
       GameService.getPlayers()
       .then((players) => this.databasePlayers = players)
+    },
+    
+    remove(option){
+      const index = this.chosenPlayers.indexOf(option)
+      this.chosenPlayers.splice(index, 1)
     }
   },
   
