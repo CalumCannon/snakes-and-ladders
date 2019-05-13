@@ -109,6 +109,7 @@ export default {
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
+
       //Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
