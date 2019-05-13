@@ -6,7 +6,7 @@
           <img src="http://clipartmag.com/images/dice-images-1-6-11.jpg "height="170" width="180"></button>
  </div>
   <!-- here the status holds the result of the roll random number -->
-   <h2 id="status" style="clear:right;"></h2>
+   <h2 id="status" style="clear:right;">{{diceNumber}}</h2>
   </div>
 
 
@@ -16,6 +16,11 @@
 import { eventBus } from '@/main.js';
 export default {
   name: 'roll-dice',
+  data(){
+    return{
+      diceNumber: null
+    }
+  },
 
   methods: {
     diceRoll(start, range) {
@@ -24,7 +29,7 @@ export default {
          eventBus.$emit('dice-rolled', randomNum);
         return randomNum;
     },
-    
+
   }
 }
 

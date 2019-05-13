@@ -6,7 +6,7 @@
       <label for="player-select">Select Player One</label>
       <select v-model="playerOne">
         <option selected disabled>Player One</option>
-        <option v-for="(player, index) in players">
+        <option v-for="(player, index) in players" :value="player">
           {{player.name}}
         </option>
         
@@ -14,7 +14,7 @@
       <label for="playerTwo-select">Select Player Two</label>
       <select v-model="playerTwo">
         <option selected disabled>Player Two</option>
-        <option v-for="(player, index) in players">
+        <option v-for="(player, index) in players" :value="player">
           {{player.name}}
         </option>
       </select>
