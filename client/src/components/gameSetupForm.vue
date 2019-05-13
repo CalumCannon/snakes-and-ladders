@@ -30,7 +30,7 @@
     :clear-on-select="false"
     label="name"
     :hide-selected="true"
-    :track-by="_id"
+    track-by="_id"
     :max="6">
     <template slot="option" slot-scope="props">
       <img :src="props.option.avatar">{{props.option.name}}</template>

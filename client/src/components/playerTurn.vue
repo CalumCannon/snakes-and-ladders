@@ -1,7 +1,6 @@
 <template lang="html">
   <div>
-    <h3 v-if="this.playerTurn === this.playerOne">{{playerOne.name}}'s turn</h3>
-    <h3 v-if="this.playerTurn === this.playerTwo">{{playerTwo.name}}'s turn</h3>
+    <h3>{{this.playerTurn.name}}'s turn</h3>
   </div>
 </template>
 
@@ -11,22 +10,23 @@ import { eventBus } from '@/main.js';
 export default {
   name: 'player-turn',
   
-  props: ['playerOne', 'playerTwo'],
+  props: ['chosenPlayers'],
   
   data(){
     return {
-      playerTurn: this.playerOne,
-      startGame: true
+      currentIndex: 0,
+      startGame: true,
+      playerTurn: this.chosenPlayers[0]
     }
   },
   
   methods: {
     changePlayer(){
-      if (this.playerTurn === this.playerOne){
-        this.playerTurn = this.playerTwo
+      if (this.currentIndex = this.chosenPlayers.length){
+        this.currentIndex = 0
       }
-      else { this.playerTurn = this.playerOne }
-      eventBus.$emit('current-player', this.playerTurn)
+      else {this.currentIndex += 1}
+      this.playerTurn = this.chosenPlayers[this.currentIndex]
     }
   },
   

@@ -10,8 +10,6 @@ import { eventBus } from '@/main.js';
 export default {
   name: 'move-history',
   
-  props: ['playerOne', 'playerTwo'],
-  
   data(){
     return{
       currentPlayer: "",
@@ -25,7 +23,7 @@ export default {
   
   methods:{
     noteMove: function(){
-      this.move = `${this.currentPlayer.name} rolled a ${diceRoll}`
+      this.move = `${this.currentPlayer} rolled a ${diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
         this.ladder = false
@@ -41,7 +39,7 @@ export default {
   
   // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
-    eventBus.$on('current-player', (playerTurn) => this.currentPlayer = playerTurn)
+    eventBus.$on('current-player', (playerTurn) => this.currentPlayer = playerTurn.name)
         
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
     
