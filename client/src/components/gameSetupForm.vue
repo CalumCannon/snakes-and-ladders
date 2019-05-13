@@ -21,7 +21,7 @@
       
     </form>
     
-    <router-link :to="{ name: 'game-view', params: {playerOne, playerTwo} }">START GAME</router-link>
+    <router-link :to="{ name: 'game-view', params: {chosenPlayers} }">START GAME</router-link>
     
   </div>
 </template>
@@ -36,9 +36,8 @@ export default {
   
   data(){
     return{
-      players: [],
-      playerOne: "",
-      playerTwo: ""
+      databasePlayers: [],
+      chosenPlayers: []
     }
   },
   
@@ -49,7 +48,7 @@ export default {
   methods: {
     fetchPlayers(){
       GameService.getPlayers()
-      .then((players) => this.players = players)
+      .then((players) => this.databasePlayers = players)
     }
   },
   
