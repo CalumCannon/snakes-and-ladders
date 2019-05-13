@@ -1,5 +1,9 @@
 <template lang="html">
+<<<<<<< HEAD
   <div class="history">
+=======
+  <div class="move">
+>>>>>>> 5571de6902b21bbf0cbc394baa244aa129f7fb8c
     <p v-for="move in moveHistory">{{move}}</p>
   </div>
 </template>
@@ -9,7 +13,7 @@ import { eventBus } from '@/main.js';
 
 export default {
   name: 'move-history',
-  
+
   data(){
     return{
       diceRoll: null,
@@ -19,7 +23,7 @@ export default {
       snake: false
     }
   },
-  
+
   methods:{
     noteMove: function(player){
       this.move = `${player} rolled a ${this.diceRoll}`
@@ -34,6 +38,7 @@ export default {
       this.moveHistory.push(this.move)
     }
   },
+<<<<<<< HEAD
   
   computed: {
     scrollBox: function(){
@@ -50,8 +55,16 @@ export default {
       console.log(player.nickname);
     })
     
+=======
+
+
+  // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
+  mounted(){
+    eventBus.$on('player-turn-completed', (player) => this.noteMove(player.nickname))
+
+>>>>>>> 5571de6902b21bbf0cbc394baa244aa129f7fb8c
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
-    
+
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.ladder = true);
     //
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.snake = true);
@@ -60,11 +73,20 @@ export default {
 </script>
 
 <style lang="css" scoped>
+<<<<<<< HEAD
 .history {
   text-align: left;
   max-height: 250px;
   width: 200px;
   border: 1px solid silver;
   overflow: auto;
+=======
+.move{
+  position: absolute;
+  left: 0;
+  top: 320px;
+  color: #3116B4;
+  font-size: 20px;
+>>>>>>> 5571de6902b21bbf0cbc394baa244aa129f7fb8c
 }
 </style>

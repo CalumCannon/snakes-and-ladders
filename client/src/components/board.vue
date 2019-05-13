@@ -175,7 +175,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 #bg-table{
   margin: 0 auto;
   background-color: green;
