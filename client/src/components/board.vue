@@ -192,7 +192,7 @@ th{
 .even{
   background-color: white;
   color: green;
-  border: 5px solid #cacaca;
+/**  border: 5px solid #cacaca; **/
 }
 
 </style>
