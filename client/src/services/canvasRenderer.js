@@ -12,6 +12,7 @@ const createRenderer = function(canvasElement, context) {
       var canvas = canvasElement;
       var ctx = context;
 
+
       //Calculate Position
       var x = player.position % 6;
       var y = Math.floor((player.position-1) / 6);
@@ -21,13 +22,24 @@ const createRenderer = function(canvasElement, context) {
         x = 6;
       }
 
+      let xPos = ((x-1)*100) + offset;
+      let yPos = ((y*-100) + 500) + offset;
+
       //Alternates the x position
       if(y % 2 == 1){
-      ctx.drawImage(player.img,500 - ((x-1)*100),  ((y*-100) + 500) + offset);
-      }else{
-      ctx.drawImage(player.img,((x-1)*100),  ((y*-100) + 500) + offset);
+        xPos = 500 - xPos
       }
 
+      ctx.drawImage(player.img,xPos,  yPos);
+
+      ctx.font = "bold 22px Arial";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "left";
+      ctx.fillText("Name", xPos,yPos + 50);
+      ctx.fillStyle = "white";
+      ctx.strokeText("Name", xPos, yPos + 50);
+
+      //Return true if player has reached target
       if(player.position < player.targetPosition){
         return false;
       }

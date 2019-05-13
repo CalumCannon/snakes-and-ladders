@@ -90,9 +90,13 @@ export default {
     this.playerTwoImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
     this.playerTwo.img = this.playerTwoImg;
 
-    //this.renderCanvas();
+
+    setTimeout(() => {
+      this.renderPlayers();
+    }, 500);
 
     eventBus.$on('dice-rolled', (randomNum) => {
+      console.log("THIS: ", this);
      this.diceRolled(randomNum);
     })
 
@@ -105,6 +109,7 @@ export default {
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
+
       //Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -130,7 +135,7 @@ export default {
       //Do end game checks here
       this.currentPlayer = this.returnCurrentPlayer();
 
-      this.currentPlayer.diceRolled(randomNum);
+      this.currentPlayer.setTargetPositon(randomNum);
 
       console.log("PLAYER: " , this.currentPlayer , " ROLLED: " , randomNum);
 
@@ -140,11 +145,20 @@ export default {
     returnCurrentPlayer(){
       this.currentPlayerIndex++;
 
-      if(this.currentPlayerIndex > this.players.length){
+      if(this.currentPlayerIndex >= this.players.length){
         this.currentPlayerIndex = 0;
       }
-
+      console.log("RETURNING: ", this.players[this.currentPlayerIndex]);
       return this.players[this.currentPlayerIndex];
+    },
+
+    renderPlayers(){
+      const canvas = document.querySelector('#myCanvas');
+      const ctx =  canvas.getContext("2d");
+      const renderer = createRenderer(canvas,ctx);
+
+      renderer.renderPlayer(this.playerOne);
+      renderer.renderPlayer(this.playerTwo, 10);
     }
 
   }
@@ -165,13 +179,14 @@ export default {
 #myCanvas{
   padding: 0;
   margin: auto;
+  margin-top: 22px;
   display: block;
   position: absolute;
-  top: 0;
+  top: 0px;
   bottom: 70px;
   left: 0;
   right: 0;
-  /**border: 1px solid pink;**/
+  border: 2px solid pink;
 }
 
 table{
