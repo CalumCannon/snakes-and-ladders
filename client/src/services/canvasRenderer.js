@@ -30,7 +30,7 @@ const createRenderer = function(canvasElement, context) {
         xPos = 500 - xPos
       }
 
-      ctx.drawImage(player.img,xPos,  yPos);
+      ctx.drawImage(player.avatar,xPos,  yPos);
 
       ctx.font = "bold 22px Arial";
       ctx.fillStyle = "white";

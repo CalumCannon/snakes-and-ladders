@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="">
-<board/>
+<board :selectedPlayers="this.chosenPlayers"/>
 <rollDice/>
 <player-turn :chosenPlayers="this.chosenPlayers"/>
 <moveHistory/>
@@ -15,9 +15,9 @@ import PlayerTurn from '@/components/playerTurn.vue';
 
 export default {
   name: 'game-view',
-  
+
   props: ['chosenPlayers'],
-  
+
   components:{
     "board": Board,
     "rollDice" : RollDice,
