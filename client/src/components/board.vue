@@ -125,6 +125,8 @@ export default {
           console.log("PLAYER REACHED TARGET ", this.currentPlayer);
 
           eventBus.$emit('player-turn-completed', this.currentPlayer);
+          eventBus.$emit('next-player', this.returnNextPlayer());
+
         }
       //}
       this.renderPlayers();
@@ -159,6 +161,14 @@ export default {
 
       return current;
     },
+
+    returnNextPlayer(){
+      let nextIndex = this.currentPlayerIndex += 1;
+      if(nextIndex >= this.players.length){
+        this.currentPlayerIndex = 0;
+      }
+      return this.players[nextIndex];
+    }
 
     renderPlayers(){
       const canvas = document.querySelector('#myCanvas');
