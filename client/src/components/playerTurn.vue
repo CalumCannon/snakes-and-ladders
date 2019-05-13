@@ -1,11 +1,13 @@
 <template lang="html">
   <div>
+    <modal v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn.name}}'s turn</h3>
   </div>
 </template>
 
 <script>
 import { eventBus } from '@/main.js';
+import Modal from '@/components/playerTurnModal.vue';
 
 export default {
   name: 'player-turn',
@@ -16,17 +18,30 @@ export default {
     return {
       currentIndex: 0,
       startGame: true,
-      playerTurn: this.chosenPlayers[0]
+      playerTurn: this.chosenPlayers[0],
+      visibleModal: false
     }
   },
   
+  components: {
+    'modal': Modal
+  },
+  
   methods: {
-    changePlayer(){
+    changePlayer: function(){
       if (this.currentIndex = this.chosenPlayers.length){
         this.currentIndex = 0
       }
       else {this.currentIndex += 1}
       this.playerTurn = this.chosenPlayers[this.currentIndex]
+    },
+    
+    showModal: function(){
+      this.visibleModal = true
+    },
+    
+    hideModal: function(){
+      this.visibleModal = false
     }
   },
   
@@ -36,6 +51,7 @@ export default {
       if (!startGame){
         this.changePlayer()
       }
+      this.showModal()
       this.startGame = false
     })
   }
