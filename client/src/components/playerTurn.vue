@@ -28,11 +28,6 @@ export default {
   methods: {
     changePlayer: function(nextPlayer){
       this.playerTurn = nextPlayer
-      // if (this.currentIndex === this.chosenPlayers.length){
-      //   this.currentIndex = 0
-      // }
-      // else {this.currentIndex += 1}
-      // this.playerTurn = this.chosenPlayers[this.currentIndex]
       this.showModal()
     },
     
@@ -47,7 +42,6 @@ export default {
   
   mounted(){
     eventBus.$on('next-player', (nextPlayer) => {
-      console.log(nextPlayer.nickname)
       this.changePlayer(nextPlayer.nickname)
     })
   }
