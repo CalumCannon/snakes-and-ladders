@@ -1,10 +1,14 @@
-const Player = function(img){
-  this.img = img;
+const Player = function(name, img, wins, losses){
+  this.nickname = name;
+  this.avatar = new Image();
+  this.avatar.src = img;
   this.position = 1;
   this.targetPosition = 1;
+  this.wins = wins;
+  this.losses = losses;
 }
 
-Player.prototype.diceRolled = function(targetPosition){
+Player.prototype.setTargetPositon = function(targetPosition){
   this.targetPosition = this.position + targetPosition;
 
   this.moveForward();

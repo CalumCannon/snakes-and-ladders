@@ -62,37 +62,43 @@ import { eventBus } from '@/main.js';
 import Player from '@/services/player.js'
 export default {
   name: 'board',
+  props: ['selectedPlayers'],
   data(){
     return{
       positionP1 : 1,
       positionP2 : 1,
       playerOneImg : new Image(),
       playerTwoImg : new Image(),
-      players : [],
       currentPlayerIndex: 0,
       playerOne : new Player(),
       playerTwo : new Player(),
       currentPlayer : "",
+      players : []
     }
   },
   mounted(){
-    this.players[0] = (this.playerOne);
-    this.players[1] = (this.playerTwo);
+    //this.players[0] = (this.playerOne);
+    //this.players[1] = (this.playerTwo);
 
-    this.playerOne.currentPosition = 1;
-    this.playerTwo.currentPosition = 1;
+    //this.playerOne.currentPosition = 1;
+    //this.playerTwo.currentPosition = 1;
 
     //this.playerOnePosition = this.positionP1;
 
     //Get players avitars here
-    this.playerOneImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    this.playerOne.img = this.playerOneImg;
-    this.playerTwoImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    this.playerTwo.img = this.playerTwoImg;
+    //this.playerOneImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    //this.playerOne.img = this.playerOneImg;
+    //this.playerTwoImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    //this.playerTwo.img = this.playerTwoImg;
 
-    //this.renderCanvas();
+    this.initPlayerObjects();
+
+    setTimeout(() => {
+      this.renderPlayers();
+    }, 500);
 
     eventBus.$on('dice-rolled', (randomNum) => {
+      console.log("THIS: ", this);
      this.diceRolled(randomNum);
     })
 
@@ -105,6 +111,7 @@ export default {
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
+
       //Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -120,17 +127,21 @@ export default {
           eventBus.$emit('player-turn-completed', this.currentPlayer);
         }
       //}
+      this.renderPlayers();
 
-      renderer.renderPlayer(this.playerOne);
-      renderer.renderPlayer(this.playerTwo, 10);
+    },
 
+    initPlayerObjects(){
+      this.selectedPlayers.forEach((player) => {
+        this.players.push(new Player(player.name, player.avatar,player.wins, player.losses));
+      })
     },
 
     diceRolled(randomNum){
       //Do end game checks here
       this.currentPlayer = this.returnCurrentPlayer();
 
-      this.currentPlayer.diceRolled(randomNum);
+      this.currentPlayer.setTargetPositon(randomNum);
 
       console.log("PLAYER: " , this.currentPlayer , " ROLLED: " , randomNum);
 
@@ -140,11 +151,23 @@ export default {
     returnCurrentPlayer(){
       this.currentPlayerIndex++;
 
-      if(this.currentPlayerIndex > this.players.length){
+      if(this.currentPlayerIndex >= this.players.length){
         this.currentPlayerIndex = 0;
       }
-
+      console.log("RETURNING: ", this.players[this.currentPlayerIndex]);
       return this.players[this.currentPlayerIndex];
+    },
+
+    renderPlayers(){
+      const canvas = document.querySelector('#myCanvas');
+      const ctx =  canvas.getContext("2d");
+      const renderer = createRenderer(canvas,ctx);
+      var i=0;
+      this.players.forEach((player) => {
+        renderer.renderPlayer(player, i*10);
+        i++;
+      })
+
     }
 
   }
@@ -165,13 +188,14 @@ export default {
 #myCanvas{
   padding: 0;
   margin: auto;
+  margin-top: 22px;
   display: block;
   position: absolute;
-  top: 0;
+  top: 0px;
   bottom: 70px;
   left: 0;
   right: 0;
-  /**border: 1px solid pink;**/
+  border: 2px solid pink;
 }
 
 table{
