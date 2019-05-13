@@ -3,7 +3,7 @@
     <div class="modal" role="dialog" aria-labelledby="popup">
       
       <slot name="body">
-        It's now {{}}
+        It's now {{currentPlayer}}'s turn!'
       </slot>
       
       <slot name="footer">
@@ -17,7 +17,7 @@
 export default {
   name: 'player-turn-modal',
   
-  props: ['player'],
+  props: ['currentPlayer'],
   
   methods: {
     close() {

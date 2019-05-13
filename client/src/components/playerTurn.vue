@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <modal v-show="visibleModal" v-on:close="hideModal"/>
+    <modal :currentPlayer="playerTurn.name" v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn.name}}'s turn</h3>
   </div>
 </template>
@@ -29,11 +29,12 @@ export default {
   
   methods: {
     changePlayer: function(){
-      if (this.currentIndex = this.chosenPlayers.length){
+      if (this.currentIndex === this.chosenPlayers.length){
         this.currentIndex = 0
       }
       else {this.currentIndex += 1}
       this.playerTurn = this.chosenPlayers[this.currentIndex]
+      this.showModal()
     },
     
     showModal: function(){
@@ -46,13 +47,11 @@ export default {
   },
   
   mounted(){
-    // eventBus to be sent from board component after move completed?
-    eventBus.$on('change-player', () => {
-      if (!startGame){
-        this.changePlayer()
+    eventBus.$on('player-turn-completed', (currentPlayer) => {
+      if (this.startGame){
+        this.startGame = false
       }
-      this.showModal()
-      this.startGame = false
+      else {this.changePlayer()}
     })
   }
   
