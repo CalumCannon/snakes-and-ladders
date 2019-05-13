@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="move">
+  <div class="history">
     <p v-for="move in moveHistory">{{move}}</p>
   </div>
 </template>
@@ -12,8 +12,7 @@ export default {
 
   data(){
     return{
-      currentPlayer: "",
-      diceRoll: 0,
+      diceRoll: null,
       move: "",
       moveHistory: [],
       ladder: false,
@@ -23,8 +22,7 @@ export default {
 
   methods:{
     noteMove: function(player){
-      this.currentPlayer = player
-      this.move = `${this.currentPlayer} rolled a ${this.diceRoll}`
+      this.move = `${player} rolled a ${this.diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
         this.ladder = false
@@ -37,10 +35,20 @@ export default {
     }
   },
 
+  computed: {
+    scrollBox: function(){
+      const box = document.querySelector(".history")
+      box.scrollTop = 999
+    }
+  },
+
 
   // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
-    eventBus.$on('player-turn-completed', (player) => this.noteMove(player.nickname))
+    eventBus.$on('player-turn-completed', (player) => {
+      this.noteMove(player.nickname)
+      console.log(player.nickname);
+    })
 
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
 

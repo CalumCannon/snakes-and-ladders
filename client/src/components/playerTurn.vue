@@ -1,7 +1,13 @@
 <template lang="html">
+<<<<<<< HEAD
   <div id="turn">
     <modal :currentPlayer="this.playerTurn.name" v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn.name}}'s turn</h3>
+=======
+  <div>
+    <modal :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
+    <h3>{{this.playerTurn}}'s turn</h3>
+>>>>>>> 6678b4621898213287e246d88b426debcb3ba9b2
   </div>
 </template>
 
@@ -11,14 +17,18 @@ import Modal from '@/components/playerTurnModal.vue';
 
 export default {
   name: 'player-turn',
+<<<<<<< HEAD
 
   props: ['chosenPlayers'],
 
+=======
+  
+  props: ['playerOne'],
+  
+>>>>>>> 6678b4621898213287e246d88b426debcb3ba9b2
   data(){
     return {
-      currentIndex: 0,
-      startGame: true,
-      playerTurn: this.chosenPlayers[0],
+      playerTurn: this.playerOne.name,
       visibleModal: false
     }
   },
@@ -28,13 +38,8 @@ export default {
   },
 
   methods: {
-    changePlayer: function(player){
-      this.playerTurn = player
-      // if (this.currentIndex === this.chosenPlayers.length){
-      //   this.currentIndex = 0
-      // }
-      // else {this.currentIndex += 1}
-      // this.playerTurn = this.chosenPlayers[this.currentIndex]
+    changePlayer: function(nextPlayer){
+      this.playerTurn = nextPlayer
       this.showModal()
     },
 
@@ -48,11 +53,8 @@ export default {
   },
 
   mounted(){
-    eventBus.$on('next-player', (player) => {
-      if (this.startGame){
-        this.startGame = false
-      }
-      else {this.changePlayer(player)}
+    eventBus.$on('next-player', (nextPlayer) => {
+      this.changePlayer(nextPlayer.nickname)
     })
   }
 
