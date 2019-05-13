@@ -149,13 +149,15 @@ export default {
     },
 
     returnCurrentPlayer(){
-      this.currentPlayerIndex++;
-
       if(this.currentPlayerIndex >= this.players.length){
         this.currentPlayerIndex = 0;
       }
       console.log("RETURNING: ", this.players[this.currentPlayerIndex]);
-      return this.players[this.currentPlayerIndex];
+      let current = this.players[this.currentPlayerIndex];
+
+      this.currentPlayerIndex++;
+
+      return current;
     },
 
     renderPlayers(){
