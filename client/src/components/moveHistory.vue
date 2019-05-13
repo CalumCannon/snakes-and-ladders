@@ -60,10 +60,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.move{
+.history{
   position: absolute;
   left: 0;
-  top: 320px;
+  top: 390px;
   color: #3116B4;
   font-size: 20px;
 }

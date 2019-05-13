@@ -1,14 +1,15 @@
 <template lang="html">
-<<<<<<< HEAD
+
   <div id="turn">
     <modal :currentPlayer="this.playerTurn.name" v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn.name}}'s turn</h3>
-=======
+
   <div>
     <modal :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn}}'s turn</h3>
->>>>>>> 6678b4621898213287e246d88b426debcb3ba9b2
+
   </div>
+</div>
 </template>
 
 <script>
@@ -17,15 +18,15 @@ import Modal from '@/components/playerTurnModal.vue';
 
 export default {
   name: 'player-turn',
-<<<<<<< HEAD
+
 
   props: ['chosenPlayers'],
 
-=======
-  
+
+
   props: ['playerOne'],
-  
->>>>>>> 6678b4621898213287e246d88b426debcb3ba9b2
+
+
   data(){
     return {
       playerTurn: this.playerOne.name,
@@ -68,6 +69,6 @@ export default {
   left: 0;
   top: 250px;
   font-size: 25px;
-  color:#FF5733  ;
+  color:#DD3CE7  ;
 }
 </style>
