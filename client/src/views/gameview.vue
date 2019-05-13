@@ -3,7 +3,7 @@
 <board :selectedPlayers="this.chosenPlayers"/>
 <rollDice/>
 <player-turn :chosenPlayers="this.chosenPlayers"/>
-<moveHistory/>
+<move-history/>
 </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
   components:{
     "board": Board,
     "rollDice" : RollDice,
-    "moveHistory": MoveHistory,
+    "move-history": MoveHistory,
     "player-turn": PlayerTurn
   }
 }
