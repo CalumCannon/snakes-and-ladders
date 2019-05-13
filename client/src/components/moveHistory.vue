@@ -13,7 +13,7 @@ export default {
   data(){
     return{
       currentPlayer: "",
-      diceRoll: "",
+      diceRoll: 0,
       move: "",
       moveHistory: [],
       ladder: false,
@@ -22,8 +22,9 @@ export default {
   },
   
   methods:{
-    noteMove: function(){
-      this.move = `${this.currentPlayer} rolled a ${diceRoll}`
+    noteMove: function(player){
+      this.currentPlayer = player
+      this.move = `${this.currentPlayer} rolled a ${this.diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
         this.ladder = false
@@ -32,15 +33,15 @@ export default {
         this.move = this.move + "and fell down a snake"
         this.snake = false
       }
-      this.moveHistory << this.move
+      this.moveHistory.push(this.move)
     }
   },
   
   
   // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
-    eventBus.$on('current-player', (playerTurn) => this.currentPlayer = playerTurn.name)
-        
+    eventBus.$on('player-turn-completed', (player) => this.noteMove(player.nickname))
+    
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
     
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.ladder = true);
