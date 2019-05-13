@@ -4,7 +4,7 @@ const Player = function(img){
   this.targetPosition = 1;
 }
 
-Player.prototype.diceRolled = function(targetPosition){
+Player.prototype.setTargetPositon = function(targetPosition){
   this.targetPosition = this.position + targetPosition;
 
   this.moveForward();
