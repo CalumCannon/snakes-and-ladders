@@ -81,7 +81,7 @@ export default {
 
     //Dice rolled event
     eventBus.$on('dice-rolled', (randomNum) => {
-      console.log("THIS: ", this);
+
      this.diceRolled(randomNum);
     })
 
@@ -108,10 +108,16 @@ export default {
       }else{
 
         console.log("PLAYER REACHED TARGET ", this.currentPlayer);
+
         //ERROR: this is firing twice
         eventBus.$emit('player-turn-completed', this.currentPlayer);
         //Check this
-        eventBus.$emit('next-player', this.returnNextPlayer());
+        let nextPlayer = this.returnNextPlayer();
+        if(nextPlayer == null){
+          console.log("ERROR NEXT PLAYER NULL");
+        }else{
+        eventBus.$emit('next-player',nextPlayer);
+        }
 
       }
 
@@ -131,7 +137,7 @@ export default {
 
       this.currentPlayer.setTargetPositon(randomNum);
 
-      console.log("PLAYER: " , this.currentPlayer , " ROLLED: " , randomNum);
+    //  console.log("PLAYER: " , this.currentPlayer , " ROLLED: " , randomNum);
 
       this.renderCanvas();
     },
@@ -142,7 +148,7 @@ export default {
       if(this.currentPlayerIndex >= this.players.length){
         this.currentPlayerIndex = 0;
       }
-      console.log("RETURNING: ", this.players[this.currentPlayerIndex]);
+  //    console.log("RETURNING: ", this.players[this.currentPlayerIndex]);
       let current = this.players[this.currentPlayerIndex];
 
 
@@ -151,9 +157,9 @@ export default {
     },
 
     returnNextPlayer(){
-      let nextIndex = this.currentPlayerIndex += 1;
+      let nextIndex = this.currentPlayerIndex + 1;
       if(nextIndex >= this.players.length){
-        this.currentPlayerIndex = 0;
+        nextIndex = 0;
       }
       return this.players[nextIndex];
     },
