@@ -22,8 +22,8 @@ export default {
   },
   
   methods:{
-    noteMove: function(player){
-      this.currentPlayer = player
+    noteMove: function(nextPlayer){
+      this.currentPlayer = nextPlayer
       this.move = `${this.currentPlayer.name} rolled a ${diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
@@ -33,14 +33,14 @@ export default {
         this.move = this.move + "and fell down a snake"
         this.snake = false
       }
-      this.moveHistory << this.move
+      this.moveHistory.push(this.move)
     }
   },
   
   
   // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
-    eventBus.$on('player-turn-completed', (currentPlayer) => this.noteMove(currentPlayer))
+    eventBus.$on('player-turn-completed', (nextPlayer) => this.noteMove(nextPlayer))
     
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
     
