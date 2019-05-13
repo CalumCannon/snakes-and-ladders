@@ -30,14 +30,16 @@ const createRenderer = function(canvasElement, context) {
         xPos = 500 - xPos
       }
 
-      ctx.drawImage(player.img,xPos,  yPos);
+      ctx.drawImage(player.avatar,xPos,  yPos);
 
-      ctx.font = "bold 22px Arial";
+      let name = player.nickname;
+
+      ctx.font = "bold 30px Arial";
       ctx.fillStyle = "white";
       ctx.textAlign = "left";
-      ctx.fillText("Name", xPos,yPos + 50);
+      ctx.fillText(name, xPos,yPos + 50);
       ctx.fillStyle = "white";
-      ctx.strokeText("Name", xPos, yPos + 50);
+      ctx.strokeText(name, xPos, yPos + 50);
 
       //Return true if player has reached target
       if(player.position < player.targetPosition){

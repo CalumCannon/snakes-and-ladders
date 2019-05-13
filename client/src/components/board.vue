@@ -62,34 +62,36 @@ import { eventBus } from '@/main.js';
 import Player from '@/services/player.js'
 export default {
   name: 'board',
+  props: ['selectedPlayers'],
   data(){
     return{
       positionP1 : 1,
       positionP2 : 1,
       playerOneImg : new Image(),
       playerTwoImg : new Image(),
-      players : [],
       currentPlayerIndex: 0,
       playerOne : new Player(),
       playerTwo : new Player(),
       currentPlayer : "",
+      players : []
     }
   },
   mounted(){
-    this.players[0] = (this.playerOne);
-    this.players[1] = (this.playerTwo);
+    //this.players[0] = (this.playerOne);
+    //this.players[1] = (this.playerTwo);
 
-    this.playerOne.currentPosition = 1;
-    this.playerTwo.currentPosition = 1;
+    //this.playerOne.currentPosition = 1;
+    //this.playerTwo.currentPosition = 1;
 
     //this.playerOnePosition = this.positionP1;
 
     //Get players avitars here
-    this.playerOneImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    this.playerOne.img = this.playerOneImg;
-    this.playerTwoImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    this.playerTwo.img = this.playerTwoImg;
+    //this.playerOneImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    //this.playerOne.img = this.playerOneImg;
+    //this.playerTwoImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
+    //this.playerTwo.img = this.playerTwoImg;
 
+    this.initPlayerObjects();
 
     setTimeout(() => {
       this.renderPlayers();
@@ -125,10 +127,14 @@ export default {
           eventBus.$emit('player-turn-completed', this.currentPlayer);
         }
       //}
+      this.renderPlayers();
 
-      renderer.renderPlayer(this.playerOne);
-      renderer.renderPlayer(this.playerTwo, 10);
+    },
 
+    initPlayerObjects(){
+      this.selectedPlayers.forEach((player) => {
+        this.players.push(new Player(player.name, player.avatar,player.wins, player.losses));
+      })
     },
 
     diceRolled(randomNum){
@@ -156,9 +162,12 @@ export default {
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
+      var i=0;
+      this.players.forEach((player) => {
+        renderer.renderPlayer(player, i*10);
+        i++;
+      })
 
-      renderer.renderPlayer(this.playerOne);
-      renderer.renderPlayer(this.playerTwo, 10);
     }
 
   }
