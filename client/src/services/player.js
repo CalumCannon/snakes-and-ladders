@@ -1,6 +1,7 @@
 const Player = function(name, img, wins, losses){
-  this.name = name;
-  this.avatar = img;
+  this.nickname = name;
+  this.avatar = new Image();
+  this.avatar.src = img;
   this.position = 1;
   this.targetPosition = 1;
   this.wins = wins;

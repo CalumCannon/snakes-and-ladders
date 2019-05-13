@@ -162,9 +162,10 @@ export default {
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
-
+      var i=0;
       this.players.forEach((player) => {
-        renderer.renderPlayer(player);
+        renderer.renderPlayer(player, i*10);
+        i++;
       })
 
     }
