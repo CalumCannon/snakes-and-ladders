@@ -28,12 +28,13 @@ export default {
   },
   
   methods: {
-    changePlayer: function(){
-      if (this.currentIndex === this.chosenPlayers.length){
-        this.currentIndex = 0
-      }
-      else {this.currentIndex += 1}
-      this.playerTurn = this.chosenPlayers[this.currentIndex]
+    changePlayer: function(player){
+      this.playerTurn = player
+      // if (this.currentIndex === this.chosenPlayers.length){
+      //   this.currentIndex = 0
+      // }
+      // else {this.currentIndex += 1}
+      // this.playerTurn = this.chosenPlayers[this.currentIndex]
       this.showModal()
     },
     
@@ -47,11 +48,11 @@ export default {
   },
   
   mounted(){
-    eventBus.$on('player-turn-completed', (currentPlayer) => {
+    eventBus.$on('next-player', (player) => {
       if (this.startGame){
         this.startGame = false
       }
-      else {this.changePlayer()}
+      else {this.changePlayer(player)}
     })
   }
   
