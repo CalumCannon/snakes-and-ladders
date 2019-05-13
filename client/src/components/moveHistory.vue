@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="move">
     <p v-for="move in moveHistory">{{move}}</p>
   </div>
 </template>
@@ -9,7 +9,7 @@ import { eventBus } from '@/main.js';
 
 export default {
   name: 'move-history',
-  
+
   data(){
     return{
       currentPlayer: "",
@@ -20,7 +20,7 @@ export default {
       snake: false
     }
   },
-  
+
   methods:{
     noteMove: function(player){
       this.currentPlayer = player
@@ -36,14 +36,14 @@ export default {
       this.moveHistory.push(this.move)
     }
   },
-  
-  
+
+
   // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
     eventBus.$on('player-turn-completed', (player) => this.noteMove(player.nickname))
-    
+
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
-    
+
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.ladder = true);
     //
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.snake = true);
@@ -52,4 +52,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.move{
+  position: absolute;
+  left: 0;
+  top: 320px;
+  color: #3116B4;
+  font-size: 20px;
+}
 </style>

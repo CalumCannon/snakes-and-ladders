@@ -1,5 +1,7 @@
 <template lang="html">
   <div>
+
+    <h1>Snakes And Ladders</h1>
     <h3>Add A New Player</h3>
     <form method="post">
       <label for="name">Player name: </label>
@@ -28,9 +30,10 @@
       <button type="button" name="button" v-on:click="addNewPlayer()">Add Player</button>
 
     </form>
-    
+
     <modal v-show="visibleModal" v-on:close="hideModal"/>
-  </div>
+
+</div>
 </template>
 
 <script>
@@ -69,11 +72,11 @@ export default {
         eventBus.$emit('add-player', res)
       })
     },
-    
+
     showModal: function(){
       this.visibleModal = true
     },
-    
+
     hideModal: function(){
       this.visibleModal = false
     }
@@ -82,4 +85,16 @@ export default {
 </script>
 
 <style lang="css" scoped>
+h1{
+  color: green;
+
+  font-family: cursive;
+  font-weight: 200;
+  font-size: 60px;
+  text-align: center;
+
+}
+
+
+
 </style>
