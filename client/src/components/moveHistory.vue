@@ -13,7 +13,7 @@ export default {
   data(){
     return{
       currentPlayer: "",
-      diceRoll: 0,
+      diceRoll: null,
       move: "",
       moveHistory: [],
       ladder: false,

@@ -28,8 +28,8 @@ export default {
   },
   
   methods: {
-    changePlayer: function(player){
-      this.playerTurn = player
+    changePlayer: function(nextPlayer){
+      this.playerTurn = nextPlayer
       // if (this.currentIndex === this.chosenPlayers.length){
       //   this.currentIndex = 0
       // }
@@ -48,11 +48,9 @@ export default {
   },
   
   mounted(){
-    eventBus.$on('next-player', (player) => {
-      if (this.startGame){
-        this.startGame = false
-      }
-      else {this.changePlayer(player)}
+    eventBus.$on('next-player', (nextPlayer) => {
+      console.log(nextPlayer);
+      // {this.changePlayer(nextPlayer.nickname)}
     })
   }
   
