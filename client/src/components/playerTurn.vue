@@ -57,7 +57,7 @@ export default {
 #turn{
   position: absolute;
   left: 0;
-  top: 250px;
+  top: 400px;
   font-size: 25px;
   color:#DD3CE7  ;
 }

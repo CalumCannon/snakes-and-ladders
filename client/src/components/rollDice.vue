@@ -79,19 +79,22 @@ export default {
 div.dice{
   float :inherit;
   width: 32px;
-  background-color: balck;
+
   border:yellow 1px solid;
   padding: 10px;
   font-size: 24px;
   text-align: center;
   margin:5px;
   color: blue;
+  background-color: #FFFF00;
 }
 
 #button{
   position: absolute;
   left: 0;
   top: 10px;
+  background-color: #F5DA81;
+
 
 }
 
@@ -101,12 +104,11 @@ div.dice{
   top: 190px;
   color:#A93226;
   font-size: 35px;
-
-
  }
 
 .disable {
   opacity: 0.5;
 
 }
+
 </style>
