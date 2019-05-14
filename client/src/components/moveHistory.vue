@@ -62,16 +62,16 @@ export default {
       this.noteMove(player)
     });
     
-    eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
+    eventBus.$on('dice-rolled', (randomNum) => {
+      this.diceRoll = randomNum}
+    );
     
     eventBus.$on('player-on-ladder', (player) => {
       this.ladder = true
-      this.noteMove(player)
     });
     
     eventBus.$on('player-on-snake', (player) => {
       this.snake = true
-      this.noteMove(player)
     });
   }
 }
