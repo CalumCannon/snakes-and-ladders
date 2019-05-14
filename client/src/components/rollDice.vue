@@ -2,12 +2,14 @@
  <div class="rolldice">
    <div id="dice" class="dice"></div>
    <div id="button">
+
    <button id="roll" type="button" value="http://clipartmag.com/images/dice-images-1-6-11.jpg" v-on:click="diceRoll(1, 6)" :disabled="this.disabled"   v-bind:class="{'disable' : this.disabled}">
           <img src="http://clipartmag.com/images/dice-images-1-6-11.jpg" height="170" width="180"></button>
+
  </div>
 
   <!-- here the status holds the result of the roll random number -->
-   <h2 id="status" style="clear:right;">{{diceNumber}}</h2>
+   <h2 id="status" style="clear:right;">Random Number:{{diceNumber}}</h2>
   </div>
 
 
@@ -85,20 +87,24 @@ div.dice{
   margin:5px;
   color: blue;
 }
+
 #button{
-  /* float :center;
-  width: 32px;
-  border:yellow 1px solid;
-  padding: 10px;
-  font-size: 24px;
-  text-align: center;
-  margin:5px;  */
-  /* background-color: green; */
-  /* color: gold yellow; */
-  /* align-content: center;
-   /* background-image: url('https://www.shutterstock.com/image-vector/casino-dice-icon-on-black-background-1341070715?src=wDS4QVRCYgxUdv3tIc0Siw-1-0'); */
+  position: absolute;
+  left: 0;
+  top: 10px;
 
 }
+
+ #status{
+  position: absolute;
+  left: 0;
+  top: 190px;
+  color:#A93226;
+  font-size: 35px;
+
+
+ }
+
 .disable {
   opacity: 0.5;
 

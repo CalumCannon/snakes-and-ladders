@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="history">
     <p v-for="move in moveHistory">{{move}}</p>
   </div>
 </template>
@@ -9,22 +9,20 @@ import { eventBus } from '@/main.js';
 
 export default {
   name: 'move-history',
-  
+
   data(){
     return{
-      currentPlayer: "",
-      diceRoll: 0,
+      diceRoll: null,
       move: "",
       moveHistory: [],
       ladder: false,
       snake: false
     }
   },
-  
+
   methods:{
     noteMove: function(player){
-      this.currentPlayer = player
-      this.move = `${this.currentPlayer} rolled a ${this.diceRoll}`
+      this.move = `${player} rolled a ${this.diceRoll}`
       if (this.ladder){
         this.move = this.move + "and climbed a ladder!"
         this.ladder = false
@@ -36,14 +34,28 @@ export default {
       this.moveHistory.push(this.move)
     }
   },
-  
-  
+
+
+  computed: {
+    scrollBox: function(){
+      const box = document.querySelector(".history")
+      box.scrollTop = 999
+    }
+  },
+
+
   // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
-    eventBus.$on('player-turn-completed', (player) => this.noteMove(player.nickname))
-    
+    eventBus.$on('player-turn-completed', (player) => {
+      this.noteMove(player.nickname)
+      console.log(player.nickname);
+    })
+
+
+
+
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
-    
+
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.ladder = true);
     //
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.snake = true);
@@ -52,4 +64,18 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.history {
+  text-align: left;
+  max-height: 250px;
+  width: 200px;
+  border: 1px solid silver;
+  overflow: auto;
+  position: absolute;
+  left: 0;
+  top: 390px;
+  color: #3116B4;
+  font-size: 20px;
+
+}
 </style>
