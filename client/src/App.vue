@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    
+
     <button type="button" name="button" v-on:click="visibleModal = true">Show Leaderboard</button>
-    
+
     <leader-modal v-show="visibleModal" v-on:close="hideModal"/>
   </div>
 </template>
@@ -13,17 +13,17 @@ import LeaderModal from '@/components/leaderboardModal.vue';
 
 export default {
   name: 'app',
-  
+
   data(){
     return{
       visibleModal: false
     }
   },
-  
+
   components: {
     'leader-modal': LeaderModal
   },
-  
+
   methods: {
     hideModal: function(){
       this.visibleModal = false
@@ -43,5 +43,7 @@ button {
   position: relative;
   bottom: 20px;
   left: 10px;
+  font-size: 20px;
+  background-color: #FE9A2E;
 }
 </style>
