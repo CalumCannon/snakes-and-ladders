@@ -71,12 +71,8 @@ export default {
       currentPlayerIndex: -1,
       currentPlayer : "",
       players : [],
-<<<<<<< HEAD
-      snakesladders : new SnakesLadders()
-=======
       snakesladders : new SnakesLadders(),
       visibleModal : false
->>>>>>> d758ad5fe9523c6db00b05b1594d3d53a7ddd576
     }
   },
   mounted(){
