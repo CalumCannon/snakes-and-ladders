@@ -4,11 +4,11 @@
       <span class="header">
         New player added!
       </span>
-      
+
       <span class="body">
         You can now start playing or add more new players!
       </span>
-  
+
       <span class="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
       </span>
@@ -20,7 +20,7 @@
 
 export default {
   name: 'modal',
-  
+
   methods: {
     close() {
       this.$emit('close');
@@ -44,7 +44,7 @@ export default {
 }
 
 .modal {
-  background: #FFFFFF;
+  background: #00FFFF;
   border: 1px solid #4AAE9B;
   border-radius: 2px;
 }

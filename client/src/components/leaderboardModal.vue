@@ -24,7 +24,7 @@
             </tr>
           </tbody>
         </table>
-<<<<<<< HEAD
+
       </slot>
 
       <slot name="footer">
@@ -34,9 +34,9 @@
       </p>
 
       </slot>
-=======
+
       </span>
-      
+
       <span class="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
       </span>
@@ -91,7 +91,7 @@ export default {
 }
 
 .modal {
-  background: #FFFFFF;
+  background: #2EFEF7;
   border: 1px solid #4AAE9B;
   border-radius: 2px;
 }
