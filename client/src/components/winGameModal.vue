@@ -19,7 +19,7 @@
 <script>
 
 export default {
-  name: 'modal',
+  name: 'win-game-modal',
   props: ['winner'],
   methods: {
     close() {

@@ -74,7 +74,7 @@ export default {
       currentPlayer : "",
       players : [],
       snakesladders : new SnakesLadders(),
-      visibleModal: false
+      visibleModal : false
     }
   },
   mounted(){
@@ -114,7 +114,7 @@ export default {
       }else{
 
         console.log("PLAYER REACHED TARGET ", this.currentPlayer);
-        if(this.currentPlayer.position == 36){
+        if(this.currentPlayer.position === 36){
            showModal();
         }
 
