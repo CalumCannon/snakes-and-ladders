@@ -39,5 +39,9 @@ export default {
   min-height: 100vh;
 }
 
-
+button {
+  position: relative;
+  bottom: 20px;
+  left: 10px;
+}
 </style>
