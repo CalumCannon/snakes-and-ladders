@@ -1,64 +1,65 @@
 <template lang="html">
-  <div>
-    <modal :currentPlayer="this.playerTurn.name" v-show="visibleModal" v-on:close="hideModal"/>
-    <h3>{{this.playerTurn.name}}'s turn</h3>
+  <div class="turn">
+    <modal :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
+    <h3>{{this.playerTurn}}'s turn</h3>
   </div>
+</div>
 </template>
 
 <script>
 import { eventBus } from '@/main.js';
 import Modal from '@/components/playerTurnModal.vue';
+import Player from '@/services/player.js';
 
 export default {
   name: 'player-turn',
-  
-  props: ['chosenPlayers'],
-  
+
+  props: ['playerOne'],
+
   data(){
     return {
-      currentIndex: 0,
-      startGame: true,
-      playerTurn: this.chosenPlayers[0],
+      playerTurn: this.playerOne.name,
       visibleModal: false
     }
   },
-  
+
   components: {
     'modal': Modal
   },
-  
+
   methods: {
-    changePlayer: function(player){
-      this.playerTurn = player
-      // if (this.currentIndex === this.chosenPlayers.length){
-      //   this.currentIndex = 0
-      // }
-      // else {this.currentIndex += 1}
-      // this.playerTurn = this.chosenPlayers[this.currentIndex]
+    changePlayer: function(nextPlayer){
+      this.playerTurn = nextPlayer
       this.showModal()
     },
-    
+
     showModal: function(){
       this.visibleModal = true
     },
-    
+
     hideModal: function(){
       this.visibleModal = false
     }
   },
-  
+
   mounted(){
-    eventBus.$on('next-player', (player) => {
-      if (this.startGame){
-        this.startGame = false
-      }
-      else {this.changePlayer(player)}
+    eventBus.$on('next-player', (nextPlayer) => {
+      console.log(nextPlayer);
+      this.changePlayer(nextPlayer.nickname)
     })
   }
-  
-  
+
+
 }
 </script>
 
 <style lang="css" scoped>
+.turn{
+  position: absolute;
+  right: 0;
+  top: 100px;
+  margin-right: 70px;
+  font-size: 25px;
+  color: blue;
+}
 </style>

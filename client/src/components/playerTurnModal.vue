@@ -1,11 +1,11 @@
 <template lang="html">
   <div class="background">
     <div class="modal" role="dialog" aria-labelledby="popup">
-      
+
       <slot name="body">
         It's now {{currentPlayer}}'s turn!'
       </slot>
-      
+
       <slot name="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
       </slot>
@@ -16,13 +16,21 @@
 <script>
 export default {
   name: 'player-turn-modal',
-  
+
   props: ['currentPlayer'],
-  
+
   methods: {
     close() {
       this.$emit('close');
     },
+  computed : {
+    updateScroll: function(){
+      console.log("UPDATING SCROLL");
+      var element = document.querySelector(".modal");
+      element.scrollTop = 0;
+    }
+
+  }
   }
 }
 </script>
@@ -40,7 +48,7 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  
+
   .modal {
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
@@ -48,12 +56,12 @@ export default {
     display: flex;
     flex-direction: column;
   }
-  
+
   .modal-header, .modal-footer {
     padding: 15px;
     display: flex;
   }
-  
+
   .modal-header {
     border-bottom: 1px solid #eeeeee;
     color: #4AAE9B;
@@ -69,7 +77,7 @@ export default {
     position: relative;
     padding: 20px 10px;
   }
-  
+
   button {
     color: white;
     background: #4AAE9B;

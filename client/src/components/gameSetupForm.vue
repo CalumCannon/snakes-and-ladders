@@ -1,27 +1,8 @@
 <template lang="html">
-  <div>
-    
-    <!-- <form action="index.html" method="post">
-    
-    <label for="player-select">Select Player One</label>
-    <select v-model="playerOne">
-    <option selected disabled>Player One</option>
-    <option v-for="(player, index) in players" :value="player">
-    {{player.name}}
-  </option>
-  
-</select>
-<label for="playerTwo-select">Select Player Two</label>
-<select v-model="playerTwo">
-<option selected disabled>Player Two</option>
-<option v-for="(player, index) in players" :value="player">
-{{player.name}}
-</option>
-</select>
+  <div class="form">
 
-</form> -->
+    <h2>Choose Players</h2>
 
-  <label for="">Choose Players</label>
     <multiselect
     v-model="chosenPlayers"
     :options="databasePlayers"
@@ -31,14 +12,17 @@
     label="name"
     :hide-selected="true"
     track-by="_id"
-    :max="6">
+    :max="6"
+    open-direction="below">
     <template slot="option" slot-scope="props">
       <img :src="props.option.avatar">{{props.option.name}}</template>
     </multiselect>
 
-<router-link :to="{ name: 'game-view', params: {chosenPlayers} }">START GAME</router-link>
+  <footer class="link">
+    <router-link :to="{ name: 'game-view', params: {chosenPlayers} }">START GAME</router-link>
+    </footer>
+  </div>
 
-</div>
 </template>
 
 // <script>
@@ -49,33 +33,33 @@ import Multiselect from '@/main.js';
 
 export default {
   name: 'game-setup-form',
-  
+
   data(){
     return{
       databasePlayers: [],
       chosenPlayers: []
     }
   },
-  
+
   components: {
     'game-view': GameView
   },
-  
+
   methods: {
     fetchPlayers(){
       GameService.getPlayers()
       .then((players) => this.databasePlayers = players)
     },
-    
+
     remove(option){
       const index = this.chosenPlayers.indexOf(option)
       this.chosenPlayers.splice(index, 1)
     }
   },
-  
+
   mounted(){
     this.fetchPlayers();
-    
+
     eventBus.$on('add-player', this.fetchPlayers);
   }
 }
@@ -83,4 +67,35 @@ export default {
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="css" scoped>
+.form {
+  display: block;
+  margin-top: 1em;
+  min-width: 100vw;
+  text-align: center;
+  min-height: 50vh;
+}
+.multiselect {
+  display: inline-block;
+  max-width: 50vw;
+  text-align: center;
+
+}
+.link {
+  position: relative;
+  top: 120px;
+  border: 3px solid white;
+  margin-left: 25vw;
+  margin-right: 25vw;
+  text-align: center;
+  background: #FFBF00;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+}
+h2{
+  color:#FE2E64;
+}
+
 </style>

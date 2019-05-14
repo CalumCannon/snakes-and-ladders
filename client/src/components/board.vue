@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="">
     <canvas id="myCanvas" width="600" height="600"></canvas>
+    <img id="boardOverlay" src="@/assets/snakesladders.png" alt="">
     <div class="table-container">
     <table id="bg-table">
   <tr>
@@ -59,55 +60,40 @@
 <script>
 import createRenderer from "../services/canvasRenderer.js";
 import { eventBus } from '@/main.js';
-import Player from '@/services/player.js'
+import Player from '@/services/player.js';
+import SnakesLadders from '@/services/snakesladders.js';
+
 export default {
   name: 'board',
   props: ['selectedPlayers'],
   data(){
     return{
-      positionP1 : 1,
-      positionP2 : 1,
-      playerOneImg : new Image(),
-      playerTwoImg : new Image(),
-      currentPlayerIndex: 0,
-      playerOne : new Player(),
-      playerTwo : new Player(),
+      currentPlayerIndex: -1,
       currentPlayer : "",
-      players : []
+      players : [],
+      snakesladders : new SnakesLadders()
     }
   },
   mounted(){
-    //this.players[0] = (this.playerOne);
-    //this.players[1] = (this.playerTwo);
-
-    //this.playerOne.currentPosition = 1;
-    //this.playerTwo.currentPosition = 1;
-
-    //this.playerOnePosition = this.positionP1;
-
-    //Get players avitars here
-    //this.playerOneImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    //this.playerOne.img = this.playerOneImg;
-    //this.playerTwoImg.src = "https://img.icons8.com/color/48/000000/guest-male.png";
-    //this.playerTwo.img = this.playerTwoImg;
-
+    //Create Player Objects
     this.initPlayerObjects();
 
+    //Delayed render : so that players display before rolling dice
     setTimeout(() => {
       this.renderPlayers();
     }, 500);
 
+    //Dice rolled event
     eventBus.$on('dice-rolled', (randomNum) => {
-      console.log("THIS: ", this);
+
      this.diceRolled(randomNum);
     })
-
-    //Event for player turn end
-    //player-turn-completed
 
   },
   methods:{
     renderCanvas(){
+
+      //Canvas init
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
@@ -115,18 +101,33 @@ export default {
       //Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      //if(this.currentPlayer){
-        if(!this.currentPlayer.reachedTarget()){
-          setTimeout(() => {
-            this.currentPlayer.moveForward();
-            this.renderCanvas();
-          }, 1000);
-        }else{
-          console.log("PLAYER REACHED TARGET ", this.currentPlayer);
+      if(!this.currentPlayer.reachedTarget()){
+        //Delayed player move
+        setTimeout(() => {
+          this.currentPlayer.moveForward();
+          this.renderCanvas();
+        }, 1000);
 
-          eventBus.$emit('player-turn-completed', this.currentPlayer);
+      }else{
+
+        console.log("PLAYER REACHED TARGET ", this.currentPlayer);
+
+        this.currentPlayer.targetPosition = this.snakesladders.checkSquare(this.currentPlayer.position);
+        this.currentPlayer.position = this.snakesladders.checkSquare(this.currentPlayer.position);
+        //Change player target
+
+        //ERROR: this is not triggering when dice roll == 1
+        eventBus.$emit('player-turn-completed', this.currentPlayer);
+        //Check this
+        let nextPlayer = this.returnNextPlayer();
+        if(nextPlayer == null){
+          console.log("ERROR NEXT PLAYER NULL");
+        }else{
+        eventBus.$emit('next-player',nextPlayer);
         }
-      //}
+
+      }
+
       this.renderPlayers();
 
     },
@@ -143,21 +144,26 @@ export default {
 
       this.currentPlayer.setTargetPositon(randomNum);
 
-      console.log("PLAYER: " , this.currentPlayer , " ROLLED: " , randomNum);
-
       this.renderCanvas();
     },
 
     returnCurrentPlayer(){
+      this.currentPlayerIndex++;
+
       if(this.currentPlayerIndex >= this.players.length){
         this.currentPlayerIndex = 0;
       }
-      console.log("RETURNING: ", this.players[this.currentPlayerIndex]);
       let current = this.players[this.currentPlayerIndex];
 
-      this.currentPlayerIndex++;
-
       return current;
+    },
+
+    returnNextPlayer(){
+      let nextIndex = this.currentPlayerIndex + 1;
+      if(nextIndex >= this.players.length){
+        nextIndex = 0;
+      }
+      return this.players[nextIndex];
     },
 
     renderPlayers(){
@@ -177,10 +183,23 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 #bg-table{
   margin: 0 auto;
   background-color: green;
+}
+
+#boardOverlay{
+  padding: 0;
+  margin: auto;
+  margin-top: 22px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 70px;
+  left: 0;
+  right: 0;
+  border: 2px solid pink;
+  width: 600px;
 }
 
 .table-container{
