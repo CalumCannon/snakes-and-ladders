@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="">
+    <modal :winner="this.currentPlayer" v-show="visibleModal" v-on:class="hideModal"/>
     <canvas id="myCanvas" width="600" height="600"></canvas>
     <img id="boardOverlay" src="@/assets/snakesladders.png" alt="">
     <div class="table-container">
@@ -62,6 +63,7 @@ import createRenderer from "../services/canvasRenderer.js";
 import { eventBus } from '@/main.js';
 import Player from '@/services/player.js';
 import SnakesLadders from '@/services/snakesladders.js';
+import Modal from './winGameModal.vue';
 
 export default {
   name: 'board',
@@ -71,7 +73,8 @@ export default {
       currentPlayerIndex: -1,
       currentPlayer : "",
       players : [],
-      snakesladders : new SnakesLadders()
+      snakesladders : new SnakesLadders(),
+      visibleModal: false
     }
   },
   mounted(){
@@ -111,6 +114,9 @@ export default {
       }else{
 
         console.log("PLAYER REACHED TARGET ", this.currentPlayer);
+        if(this.currentPlayer.position == 36){
+           showModal();
+        }
 
         this.currentPlayer.targetPosition = this.snakesladders.checkSquare(this.currentPlayer.position);
         this.currentPlayer.position = this.snakesladders.checkSquare(this.currentPlayer.position);
@@ -141,8 +147,16 @@ export default {
     diceRolled(randomNum){
       //Do end game checks here
       this.currentPlayer = this.returnCurrentPlayer();
+      // if the currentPlayer position is greaterthan target
+      // position then don't let to change his position and
+      // pass the  playerTurn to next players turn
+      if(this.currentPlayer.position +randomNum <= 36){
+        this.currentPlayer.setTargetPositon(randomNum);
+      }
 
-      this.currentPlayer.setTargetPositon(randomNum);
+      let nextPlayer = this.players
+
+
 
       this.renderCanvas();
     },
@@ -176,8 +190,13 @@ export default {
         i++;
       })
 
+    },
+    showModal: function(){
+      this.visibleModal = true
+    },
+    hideModal: function(){
+      this.visibleModal = false
     }
-
   }
 }
 </script>
