@@ -47,6 +47,15 @@ const createRenderer = function(canvasElement, context) {
       }
       return true;
 
+    },
+
+    renderSnakesLadders(snakesladders){
+      //Canvas
+      var canvas = canvasElement;
+      var ctx = context;
+
+      ctx.drawImage(snakesladders,20, 20);
+
     }
 
   }
