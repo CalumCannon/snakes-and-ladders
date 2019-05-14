@@ -39,8 +39,6 @@
     </form>
   </div>
 
-    <modal v-show="visibleModal" v-on:close="hideModal"/>
-
 </div>
 </template>
 
