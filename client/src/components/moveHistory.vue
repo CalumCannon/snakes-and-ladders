@@ -90,7 +90,7 @@ export default {
   border: 1px solid silver;
   overflow: auto;
   position: absolute;
-  top: 330px;
+  top: 325px;
   font-size: 20px;
   right: 0;
   margin-right: 10px;
