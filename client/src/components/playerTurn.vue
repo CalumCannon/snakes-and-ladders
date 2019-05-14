@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <modal :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
+    <modal style="z-index: 3;" :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn}}'s turn</h3>
   </div>
 </div>

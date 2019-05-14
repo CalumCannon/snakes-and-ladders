@@ -198,7 +198,8 @@ export default {
 
 <style lang="css" scoped>
 #bg-table{
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 80px;
   background-color: green;
 }
 
@@ -208,12 +209,13 @@ export default {
   margin-top: 22px;
   display: block;
   position: absolute;
-  top: 0px;
+  top: 80px;
   bottom: 70px;
-  left: 0;
+  left: 20px;
   right: 0;
   border: 2px solid pink;
   width: 600px;
+  z-index: 0;
 }
 
 .table-container{
@@ -226,11 +228,12 @@ export default {
   margin-top: 22px;
   display: block;
   position: absolute;
-  top: 0px;
+  top: 80px;
   bottom: 70px;
-  left: 0;
+  left: 20px;
   right: 0;
   border: 2px solid pink;
+  z-index: 1;
 }
 
 table{
