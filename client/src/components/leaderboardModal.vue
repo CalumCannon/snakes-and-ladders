@@ -1,11 +1,11 @@
 <template lang="html">
   <div class="background">
     <div class="modal" role="dialog" aria-labelledby="popup">
-      <slot name="header">
+      <span class="header">
         <h3>LEADERBOARD</h3>
-      </slot>
+      </span>
       <br>
-      <slot name="body">
+      <span class="body">
         <table>
           <thead>
             <tr>
@@ -24,11 +24,11 @@
             </tr>
           </tbody>
         </table>
-      </slot>
+      </span>
       
-      <slot name="footer">
+      <span class="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
-      </slot>
+      </span>
     </div>
   </div>
   
@@ -71,50 +71,54 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .modal {
   background: #FFFFFF;
-  box-shadow: 2px 2px 20px 1px;
-  overflow-x: auto;
+  border: 1px solid #4AAE9B;
+  border-radius: 2px;
+}
+
+.header {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 5px;
 }
 
-.modal-header, .modal-footer {
-  padding: 15px;
+.body {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
 }
 
-.modal-header {
-  border-bottom: 1px solid #eeeeee;
-  color: #4AAE9B;
-  justify-content: space-between;
-}
-
-.modal-footer {
-  border-top: 1px solid #eeeeee;
+.footer {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-end;
-}
-
-.modal-body {
-  position: relative;
-  padding: 20px 10px;
-}
-
-h3 {
   text-align: center;
+  align-items: center;
 }
 
 button {
+  min-width: 100%;
+  right: 0;
+  left: 0;
+  bottom: 0;
   color: white;
   background: #4AAE9B;
   border: 1px solid #4AAE9B;
   border-radius: 2px;
+}
+
+h3 {
+  text-align: center;
 }
 
 table {
