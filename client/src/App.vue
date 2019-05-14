@@ -14,8 +14,8 @@ export default {
 <style>
 #app{
   background-image:  url("https://thumbs.dreamstime.com/z/ladder-snake-game-funny-frame-children-64850196.jpg");
- max-width: 100vw;
- max-height: 100vh;
+ min-width: 100vw;
+ min-height: 100vh;
 }
 
 

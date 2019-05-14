@@ -9,6 +9,7 @@
 <script>
 import { eventBus } from '@/main.js';
 import Modal from '@/components/playerTurnModal.vue';
+import Player from '@/services/player.js';
 
 export default {
   name: 'player-turn',
@@ -43,6 +44,7 @@ export default {
 
   mounted(){
     eventBus.$on('next-player', (nextPlayer) => {
+      console.log(nextPlayer);
       this.changePlayer(nextPlayer.nickname)
     })
   }
