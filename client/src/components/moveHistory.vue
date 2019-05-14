@@ -64,7 +64,12 @@ export default {
   position: absolute;
   left: 0;
   top: 390px;
-  color: #3116B4;
+  /* color: #3116B4; */
   font-size: 20px;
+
 }
+p { color: green; }
+p:nth-child(odd) { color: red; }
+p:nth-child(even) { color: blue; }
+
 </style>
