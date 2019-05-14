@@ -31,10 +31,10 @@ export default {
   methods: {
     diceRoll(start, range) {
       const  randomNum = Math.floor( Math.random() * range ) + start;
-        console.log(randomNum);
+         this.disabled = true;
          eventBus.$emit('dice-rolled', randomNum);
          this.diceNumber = randomNum;
-          this.disabled = true;
+
       }
     },
       mounted() {
@@ -51,7 +51,7 @@ export default {
 
 
 
-    
+
 
 
 
