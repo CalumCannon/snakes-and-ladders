@@ -109,7 +109,7 @@ export default {
 
         console.log("PLAYER REACHED TARGET ", this.currentPlayer);
 
-        //ERROR: this is firing twice
+        //ERROR: this is not triggering when dice roll == 1
         eventBus.$emit('player-turn-completed', this.currentPlayer);
         //Check this
         let nextPlayer = this.returnNextPlayer();
@@ -137,8 +137,6 @@ export default {
 
       this.currentPlayer.setTargetPositon(randomNum);
 
-    //  console.log("PLAYER: " , this.currentPlayer , " ROLLED: " , randomNum);
-
       this.renderCanvas();
     },
 
@@ -148,10 +146,7 @@ export default {
       if(this.currentPlayerIndex >= this.players.length){
         this.currentPlayerIndex = 0;
       }
-  //    console.log("RETURNING: ", this.players[this.currentPlayerIndex]);
       let current = this.players[this.currentPlayerIndex];
-
-
 
       return current;
     },
