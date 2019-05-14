@@ -71,8 +71,12 @@ export default {
       currentPlayerIndex: -1,
       currentPlayer : "",
       players : [],
+<<<<<<< HEAD
+      snakesladders : new SnakesLadders()
+=======
       snakesladders : new SnakesLadders(),
       visibleModal : false
+>>>>>>> d758ad5fe9523c6db00b05b1594d3d53a7ddd576
     }
   },
   mounted(){
@@ -123,8 +127,7 @@ export default {
           eventBus.$emit('player-on-ladder', this.currentPlayer);
         }
         if(this.currentPlayer.position === 36){
-           showModal();
-         }
+           showModal();}
 
         this.currentPlayer.targetPosition = newpos;
         this.currentPlayer.position = newpos;
