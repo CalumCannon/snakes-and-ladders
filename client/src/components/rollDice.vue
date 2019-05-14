@@ -9,7 +9,7 @@
  </div>
 
   <!-- here the status holds the result of the roll random number -->
-   <h2 id="status" style="clear:right;">Random Number:{{diceNumber}}</h2>
+   <h2 id="status" style="clear:right;">Roll Dice:{{diceNumber}}</h2>
   </div>
 
 
