@@ -81,7 +81,7 @@ export default {
     //Delayed render : so that players display before rolling dice
     setTimeout(() => {
       this.renderPlayers();
-    }, 500);
+    }, 250);
 
     //Dice rolled event
     eventBus.$on('dice-rolled', (randomNum) => {
@@ -112,8 +112,19 @@ export default {
 
         console.log("PLAYER REACHED TARGET ", this.currentPlayer);
 
-        this.currentPlayer.targetPosition = this.snakesladders.checkSquare(this.currentPlayer.position);
-        this.currentPlayer.position = this.snakesladders.checkSquare(this.currentPlayer.position);
+        let newpos = this.snakesladders.checkSquare(this.currentPlayer.position);
+
+        //Player landed on snake
+        if(newpos < this.currentPlayer.position){
+          eventBus.$emit('player-on-snake', this.currentPlayer);
+        }
+        if(newpos > this.currentPlayer.position){
+          eventBus.$emit('player-on-ladder', this.currentPlayer);
+        }
+
+        this.currentPlayer.targetPosition = newpos;
+        this.currentPlayer.position = newpos;
+
         //Change player target
 
         //ERROR: this is not triggering when dice roll == 1
