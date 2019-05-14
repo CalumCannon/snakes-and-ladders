@@ -151,7 +151,7 @@ export default {
     },
 
     returnNextPlayer(){
-      let nextIndex = this.currentPlayerIndex += 1;
+      let nextIndex = this.currentPlayerIndex + 1;
       if(nextIndex >= this.players.length){
         this.currentPlayerIndex = 0;
       }
