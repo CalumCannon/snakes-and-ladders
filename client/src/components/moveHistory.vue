@@ -17,6 +17,7 @@ export default {
   
   data(){
     return{
+      lastMove: "",
       diceRoll: null,
       moveHistory: [],
       ladder: false,
@@ -30,16 +31,16 @@ export default {
   methods:{
     noteMove: function(player){
       this.checkArray(player)
-      const lastMove = `${player.nickname} rolled a ${this.diceRoll}`
-      if (this.ladder){
-        lastMove = lastMove + "and climbed a ladder!"
-        this.ladder = false
-      }
-      else if (this.snake){
-        lastMove = lastMove + "and fell down a snake"
+      this.lastMove = `${player.nickname} rolled a ${this.diceRoll}`
+      if (this.snake){
+        this.lastMove = `${this.lastMove} and fell down a snake`
         this.snake = false
       }
-      this.moveHistory.push(lastMove)
+      if (this.ladder){
+        this.lastMove = `${this.lastMove} and climbed a ladder!`
+        this.ladder = false
+      }
+      this.moveHistory.push(this.lastMove)
     },
     
     checkArray: function(player){
@@ -59,23 +60,13 @@ export default {
   mounted(){
     eventBus.$on('player-turn-completed', (player) => {
       this.noteMove(player)
-      console.log(player.nickname);
     });
-    
-    
-    // const box = document.querySelector(".history")
-    // box.scrollBy(0,box.scrollHeight);
-    //
-    
-    
-    
-    
     
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
     
-    // eventBus.$on(MOVE NAME HERE!!!!!!, this.ladder = true);
-    //
-    // eventBus.$on(MOVE NAME HERE!!!!!!, this.snake = true);
+    eventBus.$on(player-on-ladder, this.ladder = true);
+    
+    eventBus.$on(player-on-snake, this.snake = true);
   }
 }
 </script>
