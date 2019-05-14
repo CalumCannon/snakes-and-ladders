@@ -1,5 +1,7 @@
 <template lang="html">
-  <div class="form">
+  <div>
+
+    <h1>Snakes And Ladders</h1>
     <h3>Add A New Player</h3>
     <form method="post">
       <div>
@@ -34,8 +36,10 @@
       </div>
       
     </form>
-    
-  </div>
+
+    <modal v-show="visibleModal" v-on:close="hideModal"/>
+
+</div>
 </template>
 
 <script>
@@ -71,23 +75,30 @@ export default {
       .then((res) => {
         eventBus.$emit('add-player', res)
       })
+    },
+
+    showModal: function(){
+      this.visibleModal = true
+    },
+
+    hideModal: function(){
+      this.visibleModal = false
     }
   }
 }
 </script>
 
 <style lang="css" scoped>
-.form {
-  display: block;
-  min-width: 100vw;
+h1{
+  color: green;
+
+  font-family: cursive;
+  font-weight: 200;
+  font-size: 60px;
   text-align: center;
+
 }
-.split-form {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-button {
-  margin-bottom: 2em;
-}
+
+
 
 </style>
