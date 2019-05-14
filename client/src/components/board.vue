@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="">
     <canvas id="myCanvas" width="600" height="600"></canvas>
+    <img id="boardOverlay" src="@/assets/snakesladders.png" alt="">
     <div class="table-container">
     <table id="bg-table">
   <tr>
@@ -59,7 +60,9 @@
 <script>
 import createRenderer from "../services/canvasRenderer.js";
 import { eventBus } from '@/main.js';
-import Player from '@/services/player.js'
+import Player from '@/services/player.js';
+import SnakesLadders from '@/services/snakesladders.js';
+
 export default {
   name: 'board',
   props: ['selectedPlayers'],
@@ -67,7 +70,13 @@ export default {
     return{
       currentPlayerIndex: -1,
       currentPlayer : "",
-      players : []
+      players : [],
+<<<<<<< HEAD
+      snakesladders : new SnakesLadders()
+=======
+      snakesladders : new SnakesLadders(),
+      visibleModal : false
+>>>>>>> d758ad5fe9523c6db00b05b1594d3d53a7ddd576
     }
   },
   mounted(){
@@ -77,7 +86,7 @@ export default {
     //Delayed render : so that players display before rolling dice
     setTimeout(() => {
       this.renderPlayers();
-    }, 500);
+    }, 250);
 
     //Dice rolled event
     eventBus.$on('dice-rolled', (randomNum) => {
@@ -97,7 +106,6 @@ export default {
       //Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-
       if(!this.currentPlayer.reachedTarget()){
         //Delayed player move
         setTimeout(() => {
@@ -108,6 +116,23 @@ export default {
       }else{
 
         console.log("PLAYER REACHED TARGET ", this.currentPlayer);
+
+        let newpos = this.snakesladders.checkSquare(this.currentPlayer.position);
+
+        //Player landed on snake
+        if(newpos < this.currentPlayer.position){
+          eventBus.$emit('player-on-snake', this.currentPlayer);
+        }
+        if(newpos > this.currentPlayer.position){
+          eventBus.$emit('player-on-ladder', this.currentPlayer);
+        }
+        if(this.currentPlayer.position === 36){
+           showModal();}
+
+        this.currentPlayer.targetPosition = newpos;
+        this.currentPlayer.position = newpos;
+
+        //Change player target
 
         //ERROR: this is not triggering when dice roll == 1
         eventBus.$emit('player-turn-completed', this.currentPlayer);
@@ -179,6 +204,20 @@ export default {
 #bg-table{
   margin: 0 auto;
   background-color: green;
+}
+
+#boardOverlay{
+  padding: 0;
+  margin: auto;
+  margin-top: 22px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 70px;
+  left: 0;
+  right: 0;
+  border: 2px solid pink;
+  width: 600px;
 }
 
 .table-container{

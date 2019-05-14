@@ -2,11 +2,11 @@
   <div class="background">
     <div class="modal" role="dialog" aria-labelledby="popup">
       <slot name="header">
-        New player added!
+        player has won the game!
       </slot>
       <br>
       <slot name="body">
-        You can now start playing or add more new players!
+        {{winner.nickname}} has won the game!!
       </slot>
 
       <slot name="footer">
@@ -19,8 +19,8 @@
 <script>
 
 export default {
-  name: 'modal',
-
+  name: 'win-game-modal',
+  props: ['winner'],
   methods: {
     close() {
       this.$emit('close');

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="turn">
     <modal :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn}}'s turn</h3>
   </div>
@@ -9,6 +9,7 @@
 <script>
 import { eventBus } from '@/main.js';
 import Modal from '@/components/playerTurnModal.vue';
+import Player from '@/services/player.js';
 
 export default {
   name: 'player-turn',
@@ -43,6 +44,7 @@ export default {
 
   mounted(){
     eventBus.$on('next-player', (nextPlayer) => {
+      console.log(nextPlayer);
       this.changePlayer(nextPlayer.nickname)
     })
   }
@@ -52,11 +54,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#turn{
+.turn{
   position: absolute;
-  left: 0;
-  top: 250px;
+  right: 0;
+  top: 100px;
+  margin-right: 70px;
   font-size: 25px;
-  color:#DD3CE7  ;
+  color: blue;
 }
 </style>
