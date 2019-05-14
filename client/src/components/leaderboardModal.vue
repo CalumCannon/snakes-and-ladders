@@ -25,13 +25,17 @@
           </tbody>
         </table>
       </slot>
-      
+
       <slot name="footer">
+
+        <p>
         <button type="button" name="button" v-on:click="close">OK</button>
+      </p>
+
       </slot>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -39,24 +43,24 @@ import GameService from '@/services/gameService.js';
 
 export default {
   name: 'leader-modal',
-  
+
   data(){
     return{
       databasePlayers: []
     }
   },
-  
+
   methods: {
     close() {
       this.$emit('close');
     },
-    
+
     fetchPlayers(){
       GameService.getPlayers()
       .then((players) => this.databasePlayers = players)
     }
   },
-  
+
   mounted(){
     this.fetchPlayers();
   }
@@ -115,10 +119,17 @@ button {
   background: #4AAE9B;
   border: 1px solid #4AAE9B;
   border-radius: 2px;
+
 }
 
 table {
   min-width: 50vw;
   text-align: center;
+}
+
+p{
+
+  text-align: center;
+
 }
 </style>

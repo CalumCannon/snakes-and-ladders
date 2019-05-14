@@ -6,23 +6,24 @@
       <br>
       <slot name="body">
         It's now {{currentPlayer}}'s turn!
+
       </slot>
-      
+
       <slot name="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
       </slot>
     </div>
   </div>
-  
+
 </template>
 
 <script>
 
 export default {
   name: 'modal',
-  
+
   props: ['currentPlayer'],
-  
+
   methods: {
     close() {
       this.$emit('close');
