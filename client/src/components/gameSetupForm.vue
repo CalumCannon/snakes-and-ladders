@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="form">
-    
+
     <h2>Choose Players</h2>
-    
+
     <multiselect
     v-model="chosenPlayers"
     :options="databasePlayers"
@@ -17,12 +17,12 @@
     <template slot="option" slot-scope="props">
       <img :src="props.option.avatar">{{props.option.name}}</template>
     </multiselect>
-  
+
   <footer class="link">
     <router-link :to="{ name: 'game-view', params: {chosenPlayers} }">START GAME</router-link>
     </footer>
   </div>
-  
+
 </template>
 
 // <script>
@@ -33,33 +33,33 @@ import Multiselect from '@/main.js';
 
 export default {
   name: 'game-setup-form',
-  
+
   data(){
     return{
       databasePlayers: [],
       chosenPlayers: []
     }
   },
-  
+
   components: {
     'game-view': GameView
   },
-  
+
   methods: {
     fetchPlayers(){
       GameService.getPlayers()
       .then((players) => this.databasePlayers = players)
     },
-    
+
     remove(option){
       const index = this.chosenPlayers.indexOf(option)
       this.chosenPlayers.splice(index, 1)
     }
   },
-  
+
   mounted(){
     this.fetchPlayers();
-    
+
     eventBus.$on('add-player', this.fetchPlayers);
   }
 }
@@ -78,18 +78,24 @@ export default {
   display: inline-block;
   max-width: 50vw;
   text-align: center;
+
 }
 .link {
   position: relative;
   top: 120px;
-  border: 3px solid black;
+  border: 3px solid white;
   margin-left: 25vw;
   margin-right: 25vw;
   text-align: center;
-  background: grey;
+  background: #FFBF00;
   padding-top: 15px;
   padding-bottom: 15px;
   font-size: 30px;
   font-weight: bold;
+  color: white;
 }
+h2{
+  color:#FE2E64;
+}
+
 </style>

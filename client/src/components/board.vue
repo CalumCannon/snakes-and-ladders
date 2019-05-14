@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="">
     <canvas id="myCanvas" width="600" height="600"></canvas>
+    <img id="boardOverlay" src="@/assets/snakesladders.png" alt="">
     <div class="table-container">
     <table id="bg-table">
   <tr>
@@ -59,7 +60,9 @@
 <script>
 import createRenderer from "../services/canvasRenderer.js";
 import { eventBus } from '@/main.js';
-import Player from '@/services/player.js'
+import Player from '@/services/player.js';
+import SnakesLadders from '@/services/snakesladders.js';
+
 export default {
   name: 'board',
   props: ['selectedPlayers'],
@@ -67,7 +70,8 @@ export default {
     return{
       currentPlayerIndex: -1,
       currentPlayer : "",
-      players : []
+      players : [],
+      snakesladders : new SnakesLadders()
     }
   },
   mounted(){
@@ -97,7 +101,6 @@ export default {
       //Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-
       if(!this.currentPlayer.reachedTarget()){
         //Delayed player move
         setTimeout(() => {
@@ -108,6 +111,10 @@ export default {
       }else{
 
         console.log("PLAYER REACHED TARGET ", this.currentPlayer);
+
+        this.currentPlayer.targetPosition = this.snakesladders.checkSquare(this.currentPlayer.position);
+        this.currentPlayer.position = this.snakesladders.checkSquare(this.currentPlayer.position);
+        //Change player target
 
         //ERROR: this is not triggering when dice roll == 1
         eventBus.$emit('player-turn-completed', this.currentPlayer);
@@ -179,6 +186,20 @@ export default {
 #bg-table{
   margin: 0 auto;
   background-color: green;
+}
+
+#boardOverlay{
+  padding: 0;
+  margin: auto;
+  margin-top: 22px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 70px;
+  left: 0;
+  right: 0;
+  border: 2px solid pink;
+  width: 600px;
 }
 
 .table-container{

@@ -3,39 +3,39 @@
 
     <h1>Snakes And Ladders</h1>
     <div class="form">
-    <h3>Add A New Player</h3>
+    <h2>Add A New Player</h2>
     <form method="post">
-      <div>
+      <div id="name">
         <label for="name">Player name: </label>
         <input type="text" class="input" v-model:name="name"></input>
       </div>
-      
+
       <div class="split-form">
         <label for="avatar">Choose an Avatar: </label>
-        
+
         <input type="radio" value="https://img.icons8.com/color/48/000000/jake.png" v-model="avatar">
         <img src="https://img.icons8.com/color/48/000000/jake.png"></input>
-        
+
         <input type="radio" value="https://img.icons8.com/color/48/000000/batman.png" v-model="avatar">
         <img src="https://img.icons8.com/color/48/000000/batman.png"></input>
-        
+
         <input type="radio" value="https://img.icons8.com/color/48/000000/super-mario.png" v-model="avatar">
         <img src="https://img.icons8.com/color/48/000000/super-mario.png"></input>
-        
+
         <input type="radio" value="https://img.icons8.com/color/48/000000/iron-man.png" v-model="avatar">
         <img src="https://img.icons8.com/color/48/000000/iron-man.png"></input>
-        
+
         <input type="radio" value="https://img.icons8.com/color/48/000000/anonymous-mask.png" v-model="avatar">
         <img src="https://img.icons8.com/color/48/000000/anonymous-mask.png"></input>
-        
+
         <input type="radio" value="https://img.icons8.com/color/48/000000/guest-male.png" v-model="avatar">
         <img src="https://img.icons8.com/color/48/000000/guest-male.png"></input>
       </div>
-      
+
       <div>
         <button type="button" name="button" v-on:click="addNewPlayer()">Add Player</button>
       </div>
-      
+
     </form>
   </div>
 
@@ -50,18 +50,18 @@ import { eventBus } from '@/main.js';
 
 export default {
   name: 'create-new-player',
-  
+
   data(){
     return {
       name: "",
       avatar: "",
     }
   },
-  
+
   components:{
     GameService,
   },
-  
+
   methods: {
     addNewPlayer: function(){
       event.preventDefault()
@@ -107,10 +107,26 @@ h1{
   color: green;
 
   font-family: cursive;
-  font-weight: 200;
-  font-size: 60px;
+  font-weight: 400;
+  font-size: 65px;
   text-align: center;
 
+}
+h2{
+  color: #E73C7F;
+  font-size: 40px
+}
+#name{
+ color: #3C46E7;
+ font-size: 25px;
+}
+.split-form{
+  color: #3C46E7;
+  font-size: 20px;
+}
+button{
+  color: white;
+  background-color: #FF0040
 }
 
 

@@ -132,4 +132,8 @@ li {
 .n2cd6c5 {
   color: #2cd6c5;
 }
+p { color: green; }
+p:nth-child(odd) { color: red; }
+p:nth-child(even) { color: blue; }
+
 </style>
