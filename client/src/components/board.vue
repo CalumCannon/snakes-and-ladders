@@ -140,10 +140,7 @@ export default {
 
     diceRolled(randomNum){
       //Do end game checks here
-
       this.currentPlayer = this.returnCurrentPlayer();
-
-      //HERE
 
       this.currentPlayer.setTargetPositon(randomNum);
 
