@@ -1,8 +1,5 @@
 <template lang="html">
   <div class="history">
-    <!-- <p v-for="move in moveHistory"
-    :class="checkClass()">
-    {{move}}</p> -->
     <ul>
       <li v-for="(move, index) in moveHistory" :class="playerColours[index]">{{move}}</li>
     </ul>
@@ -56,7 +53,6 @@ export default {
   },
   
   
-  // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
     eventBus.$on('player-turn-completed', (player) => {
       this.noteMove(player)
