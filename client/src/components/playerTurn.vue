@@ -3,6 +3,7 @@
     <modal :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
     <h3>{{this.playerTurn}}'s turn</h3>
   </div>
+</div>
 </template>
 
 <script>
@@ -56,6 +57,6 @@ export default {
   left: 0;
   top: 250px;
   font-size: 25px;
-  color:#FF5733  ;
+  color:#DD3CE7  ;
 }
 </style>

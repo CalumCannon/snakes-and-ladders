@@ -1,9 +1,5 @@
 <template lang="html">
-<<<<<<< HEAD
   <div class="history">
-=======
-  <div class="move">
->>>>>>> 5571de6902b21bbf0cbc394baa244aa129f7fb8c
     <p v-for="move in moveHistory">{{move}}</p>
   </div>
 </template>
@@ -38,31 +34,26 @@ export default {
       this.moveHistory.push(this.move)
     }
   },
-<<<<<<< HEAD
-  
+
+
   computed: {
     scrollBox: function(){
       const box = document.querySelector(".history")
       box.scrollTop = 999
     }
   },
-  
-  
+
+
   // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
   mounted(){
     eventBus.$on('player-turn-completed', (player) => {
       this.noteMove(player.nickname)
       console.log(player.nickname);
     })
-    
-=======
 
 
-  // FIX THE NAMES OF THE EVENT BUSES AND DATA PASSED DOWN!
-  mounted(){
-    eventBus.$on('player-turn-completed', (player) => this.noteMove(player.nickname))
 
->>>>>>> 5571de6902b21bbf0cbc394baa244aa129f7fb8c
+
     eventBus.$on('dice-rolled', (randomNum) => this.diceRoll = randomNum);
 
     // eventBus.$on(MOVE NAME HERE!!!!!!, this.ladder = true);
@@ -73,20 +64,18 @@ export default {
 </script>
 
 <style lang="css" scoped>
-<<<<<<< HEAD
+
 .history {
   text-align: left;
   max-height: 250px;
   width: 200px;
   border: 1px solid silver;
   overflow: auto;
-=======
-.move{
   position: absolute;
   left: 0;
-  top: 320px;
+  top: 390px;
   color: #3116B4;
   font-size: 20px;
->>>>>>> 5571de6902b21bbf0cbc394baa244aa129f7fb8c
+
 }
 </style>
