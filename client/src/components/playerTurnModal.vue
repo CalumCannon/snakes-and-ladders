@@ -1,36 +1,32 @@
 <template lang="html">
   <div class="background">
     <div class="modal" role="dialog" aria-labelledby="popup">
-
-      <slot name="body">
-        It's now {{currentPlayer}}'s turn!'
+      <slot name="header">
       </slot>
-
+      <br>
+      <slot name="body">
+        It's now {{currentPlayer}}'s turn!
+      </slot>
+      
       <slot name="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
       </slot>
     </div>
   </div>
+  
 </template>
 
 <script>
+
 export default {
-  name: 'player-turn-modal',
-
+  name: 'modal',
+  
   props: ['currentPlayer'],
-
+  
   methods: {
     close() {
       this.$emit('close');
-    },
-  computed : {
-    updateScroll: function(){
-      console.log("UPDATING SCROLL");
-      var element = document.querySelector(".modal");
-      element.scrollTop = 0;
     }
-
-  }
   }
 }
 </script>
