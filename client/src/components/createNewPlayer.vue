@@ -2,6 +2,7 @@
   <div>
 
     <h1>Snakes And Ladders</h1>
+    <div class="form">
     <h3>Add A New Player</h3>
     <form method="post">
       <div>
@@ -36,6 +37,7 @@
       </div>
       
     </form>
+  </div>
 
     <modal v-show="visibleModal" v-on:close="hideModal"/>
 
@@ -89,6 +91,18 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.form {
+  display: block;
+  min-width: 100vw;
+  text-align: center;
+}
+.split-form {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+button {
+  margin-bottom: 2em;
+}
 h1{
   color: green;
 
