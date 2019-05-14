@@ -66,7 +66,7 @@ export default {
         losses: 0,
         avatar: this.avatar
       }
-      event.target.reset
+      this.name = ""
       GameService.postPlayers(player)
       .then((res) => {
         eventBus.$emit('add-player', res)
