@@ -47,6 +47,8 @@ export default {
   background: yellow;
   border: 1px solid #4AAE9B;
   border-radius: 2px;
+  
+
 }
 
 .header {

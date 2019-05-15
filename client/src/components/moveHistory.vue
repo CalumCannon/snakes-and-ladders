@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="history">
+    <h3>Players History</h3>
     <ul>
       <li v-for="(move, index) in moveHistory" :class="playerColours[index]">{{move}}</li>
     </ul>
@@ -11,7 +12,7 @@ import { eventBus } from '@/main.js';
 
 export default {
   name: 'move-history',
-  
+
   data(){
     return{
       lastMove: "",
@@ -24,7 +25,7 @@ export default {
       playerColours: []
     }
   },
-  
+
   methods:{
     noteMove: function(player){
       this.checkArray(player)
@@ -40,7 +41,7 @@ export default {
       this.moveHistory.push(this.lastMove)
       this.diceRoll = 1
     },
-    
+
     checkArray: function(player){
       if (!this.players.includes(player)){
         const colour = this.colours[Math.floor(Math.random()*this.colours.length)]
@@ -52,21 +53,21 @@ export default {
       this.playerColours.push(player.colour)
     }
   },
-  
-  
+
+
   mounted(){
     eventBus.$on('player-turn-completed', (player) => {
       this.noteMove(player)
     });
-    
+
     eventBus.$on('dice-rolled', (randomNum) => {
       this.diceRoll = randomNum}
     );
-    
+
     eventBus.$on('player-on-ladder', (player) => {
       this.ladder = true
     });
-    
+
     eventBus.$on('player-on-snake', (player) => {
       this.snake = true
     });
@@ -75,7 +76,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+h3{
+  color:#0000FF;
+}
 .history {
   background-color: #fffbd3;
   text-align: left;
@@ -84,7 +87,7 @@ export default {
   border: 1px solid silver;
   overflow: auto;
   position: absolute;
-  top: 325px;
+  top: 150px;
   font-size: 20px;
   right: 0;
   margin-right: 10px;
@@ -115,8 +118,8 @@ li {
 .n2cd6c5 {
   color: #2cd6c5;
 }
-p { color: green; }
+/* p { color: green; }
 p:nth-child(odd) { color: red; }
-p:nth-child(even) { color: blue; }
+p:nth-child(even) { color: blue; } */
 
 </style>

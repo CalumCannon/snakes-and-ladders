@@ -1,7 +1,8 @@
 <template lang="html">
   <div>
     <modal style="z-index: 3;" :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
-    <h3>{{this.playerTurn}}'s turn</h3>
+    <h2>{{this.playerTurn}}'s turn</h2>
+    <!-- <img :src="this.playerTurn.avatar" alt=""> -->
   </div>
 </div>
 </template>
@@ -54,7 +55,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-h3 {
+h2 {
   position: absolute;
   right: 0;
   top: 100px;

@@ -2,6 +2,7 @@
   <div class="rolldice">
     <div id="dice" class="dice"></div>
     <div id="button">
+      <audio src="http://soundbible.com/mp3/service-bell_daniel_simion.mp3"></audio>
 
       <button id="roll" type="button" v-on:click="diceRoll(1, 6)" :disabled="this.disabled"   v-bind:class="{'disable' : this.disabled}">
         <img :src="checkImage(diceNumber)" alt="">
@@ -98,7 +99,7 @@
 
 
   <style lang="css" scoped>
-    div.dice{
+    {/* div.dice{
       float :inherit;
       width: 32px;
 
@@ -108,7 +109,7 @@
       text-align: center;
       margin:5px;
 
-    }
+    } */}
 
     #button{
       position: absolute;
@@ -137,9 +138,9 @@
     }
 
     img{
-      margin-top: 30px;
-      margin-left: 30px;
-      width: 150px;
+      margin-top: 10px;
+      margin-left: 10px;
+      width: 110px;
     }
 
   </style>
