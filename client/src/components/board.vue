@@ -166,9 +166,13 @@ export default {
       //Do end game checks here
       this.currentPlayer = this.returnCurrentPlayer();
 
-      this.currentPlayer.setTargetPositon(randomNum);
+      if(this.currentPlayer.position + randomNum < 36){
+        this.currentPlayer.setTargetPositon(randomNum);
+        this.playerMoveUpdate();
+      }else{
+        finishTurn();
+      }
 
-      this.playerMoveUpdate();
 
       //this.renderCanvas();
     },
