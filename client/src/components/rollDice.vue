@@ -1,17 +1,14 @@
 <template lang="html">
   <div class="rolldice">
-    <div id="dice" class="dice"></div>
     <div id="button">
-      <audio src="http://soundbible.com/mp3/service-bell_daniel_simion.mp3"></audio>
-
       <button id="roll" type="button" v-on:click="diceRoll(1, 6)" :disabled="this.disabled"   v-bind:class="{'disable' : this.disabled}">
-        <img :src="checkImage(diceNumber)" alt="">
+        <img id="diceimage" :src="checkImage(diceNumber)" alt="">
+        <!-- here the status holds the result of the roll random number -->
+        <h2 id="status" style="clear:right;">Player rolled:{{diceNumber}}</h2>
         </button>
 
       </div>
 
-      <!-- here the status holds the result of the roll random number -->
-      <h2 id="status" style="clear:right;">Roll Dice:{{diceNumber}}</h2>
     </div>
 
 
@@ -108,22 +105,19 @@
       font-size: 24px;
       text-align: center;
       margin:5px;
-
     } */}
+
+
 
     #button{
       position: absolute;
       left: 0;
-      top: 10px;
-
-
-
+      top: 150px;
+      width: 300px;
     }
 
     #status{
-      position: absolute;
-      left: 0;
-      top: 190px;
+      position: relative;
       color:#A93226;
       font-size: 35px;
     }
@@ -137,10 +131,12 @@
       animation: shake 3s;
     }
 
-    img{
-      margin-top: 10px;
-      margin-left: 10px;
-      width: 110px;
+    #diceimage{
+      position: absolute;
+      top : 100px;
+      margin: 0 auto;
+      width: 150px;
+      left: 0px;
     }
 
   </style>

@@ -62,6 +62,7 @@ import createRenderer from "../services/canvasRenderer.js";
 import { eventBus } from '@/main.js';
 import Player from '@/services/player.js';
 import SnakesLadders from '@/services/snakesladders.js';
+import Modal from '@/components/winGameModal.vue';
 
 export default {
   name: 'board',
@@ -91,6 +92,14 @@ export default {
 
   },
   methods:{
+
+    showModal: function(){
+      this.visibleModal = true
+    },
+
+    hideModal: function(){
+      this.visibleModal = false
+    },
 
     renderCanvas(){
 
@@ -166,9 +175,13 @@ export default {
       //Do end game checks here
       this.currentPlayer = this.returnCurrentPlayer();
 
-      this.currentPlayer.setTargetPositon(randomNum);
+      if(this.currentPlayer.position + randomNum < 36){
+        this.currentPlayer.setTargetPositon(randomNum);
+        this.playerMoveUpdate();
+      }else{
+        this.finishTurn();
+      }
 
-      this.playerMoveUpdate();
 
       //this.renderCanvas();
     },
@@ -228,7 +241,7 @@ export default {
 
         //Player has won
         if(this.currentPlayer.position === 36){
-           this.showModal();
+           showModal();
         }
 
         //Setting players position
@@ -243,8 +256,9 @@ export default {
         }, 500);
       }
 
-      }
-    },
+    }
+
+  },
 
     finishTurn(){
       //EMIT PLAYER TURN FINISHED
@@ -274,6 +288,7 @@ export default {
 
     }
 
+
   }
 }
 </script>
@@ -295,7 +310,6 @@ export default {
   bottom: 70px;
   left: 20px;
   right: 0;
-  border: 2px solid pink;
   width: 600px;
   z-index: 0;
 }
@@ -314,7 +328,6 @@ export default {
   bottom: 70px;
   left: 20px;
   right: 0;
-  border: 2px solid pink;
   z-index: 1;
 }
 
@@ -335,7 +348,7 @@ th{
 
 .even{
   background-color: #DF3A01;
-  color: green;
+  color: white;
 /**  border: 5px solid #cacaca; **/
 }
 

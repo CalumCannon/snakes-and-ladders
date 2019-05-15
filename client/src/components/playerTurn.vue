@@ -2,7 +2,7 @@
   <div>
     <modal style="z-index: 3;" :currentPlayer="this.playerTurn" v-show="visibleModal" v-on:close="hideModal"/>
     <h2>{{this.playerTurn}}'s turn</h2>
-    <!-- <img :src="this.playerTurn.avatar" alt=""> -->
+    <!-- <img :src="this.playerTurn.avatar">{{this.playerTurn.avatar}} -->
   </div>
 </div>
 </template>
@@ -20,6 +20,7 @@ export default {
   data(){
     return {
       playerTurn: this.playerOne.name,
+      
       visibleModal: false
     }
   },

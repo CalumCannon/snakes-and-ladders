@@ -34,18 +34,18 @@ export default {
 </script>
 
 <style>
-#app{
+body{
   background-image:  url("https://thumbs.dreamstime.com/z/ladder-snake-game-funny-frame-children-64850196.jpg");
-  min-width: 100vw;
-  min-height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 button {
   position: relative;
   bottom: 20px;
   left: 10px;
-  font-size: 15px;
-  background-color:#FFBF00;
+  font-size: 20px;
+
 }
 
 
