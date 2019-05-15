@@ -62,6 +62,7 @@ import createRenderer from "../services/canvasRenderer.js";
 import { eventBus } from '@/main.js';
 import Player from '@/services/player.js';
 import SnakesLadders from '@/services/snakesladders.js';
+import Modal from '@/components/winGameModal.vue';
 
 export default {
   name: 'board',
@@ -91,6 +92,14 @@ export default {
 
   },
   methods:{
+
+    showModal: function(){
+      this.visibleModal = true
+    },
+
+    hideModal: function(){
+      this.visibleModal = false
+    },
 
     renderCanvas(){
 
@@ -170,7 +179,7 @@ export default {
         this.currentPlayer.setTargetPositon(randomNum);
         this.playerMoveUpdate();
       }else{
-        finishTurn();
+        this.finishTurn();
       }
 
 
@@ -232,7 +241,7 @@ export default {
 
         //Player has won
         if(this.currentPlayer.position === 36){
-           this.showModal();
+           showModal();
         }
 
         //Setting players position
@@ -247,8 +256,9 @@ export default {
         }, 500);
       }
 
-      }
-    },
+    }
+
+  },
 
     finishTurn(){
       //EMIT PLAYER TURN FINISHED
