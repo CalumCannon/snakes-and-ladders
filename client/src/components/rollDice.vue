@@ -1,6 +1,7 @@
 <template lang="html">
  <div class="rolldice">
    <div id="dice" class="dice"></div>
+   <audio id="myAudio" src="http://soundbible.com/mp3/service-bell_daniel_simion.mp3"></audio>
    <div id="button">
 
    <button id="roll" type="button" value="http://clipartmag.com/images/dice-images-1-6-11.jpg" v-on:click="diceRoll(1, 6)" :disabled="this.disabled"   v-bind:class="{'disable' : this.disabled}">
@@ -39,15 +40,22 @@ export default {
 
       }
     },
+
+
       mounted() {
 
          eventBus.$on('player-turn-completed', (currentPlayer) =>  {
            this.disabled = false;
            console.log(this.disabled)
-          })
+         })
+
+         // setTimeout(() => {
+         //   document.getElementById('myAudio').play()
+         // }, 500);
 
        }
      }
+
 
 
 

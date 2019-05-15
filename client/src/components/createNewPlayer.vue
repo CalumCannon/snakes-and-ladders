@@ -1,4 +1,4 @@
-<template lang="html">
+  <template lang="html">
   <div>
 
     <h1>Snakes And Ladders</h1>

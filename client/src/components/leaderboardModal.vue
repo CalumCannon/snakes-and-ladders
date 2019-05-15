@@ -40,7 +40,7 @@
       <span class="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
       </span>
->>>>>>> 55fb034c19d645436fdb179ade3d936255ff0a66
+
     </div>
   </div>
 
