@@ -1,10 +1,6 @@
 <template lang="html">
   <div class="background">
     <div class="modal" role="dialog" aria-labelledby="popup">
-      <slot name="header">
-        player has won the game!
-      </slot>
-      <br>
       <slot name="body">
         {{winner.nickname}} has won the game!!
       </slot>
@@ -31,50 +27,54 @@ export default {
 
 <style lang="css" scoped>
 .background {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-  .modal {
-    background: #FFFFFF;
-    box-shadow: 2px 2px 20px 1px;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
-  }
+.modal {
+  background: yellow;
+  border: 1px solid #4AAE9B;
+  border-radius: 2px;
+}
 
-  .modal-header, .modal-footer {
-    padding: 15px;
-    display: flex;
-  }
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 5px;
+}
 
-  .modal-header {
-    border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
-    justify-content: space-between;
-  }
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+}
 
-  .modal-footer {
-    border-top: 1px solid #eeeeee;
-    justify-content: flex-end;
-  }
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  align-items: center;
+}
 
-  .modal-body {
-    position: relative;
-    padding: 20px 10px;
-  }
-
-  button {
-    color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
-    border-radius: 2px;
-  }
+button {
+  min-width: 100%;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  color: white;
+  background: #4AAE9B;
+  border: 1px solid #4AAE9B;
+  border-radius: 2px;
+}
 </style>

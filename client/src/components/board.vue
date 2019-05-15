@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="">
+  <div class="">
     <canvas id="myCanvas" width="600" height="600"></canvas>
     <img id="boardOverlay" src="@/assets/snakesladders.png" alt="">
     <div class="table-container">
@@ -55,6 +56,8 @@
 </table>
     </div>
   </div>
+  <winner-modal v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
+  </div>
 </template>
 
 <script>
@@ -91,6 +94,11 @@ export default {
     })
 
   },
+  
+  components: {
+    'winner-modal': Modal
+  },
+  
   methods:{
 
     showModal: function(){
@@ -141,7 +149,7 @@ export default {
 
         //Player has won
         if(this.currentPlayer.position === 36){
-           showModal();
+           this.showModal();
         }
 
         //Setting players position
@@ -175,7 +183,7 @@ export default {
       //Do end game checks here
       this.currentPlayer = this.returnCurrentPlayer();
 
-      if(this.currentPlayer.position + randomNum < 36){
+      if(this.currentPlayer.position + randomNum <= 36){
         this.currentPlayer.setTargetPositon(randomNum);
         this.playerMoveUpdate();
       }else{
@@ -241,7 +249,7 @@ export default {
 
         //Player has won
         if(this.currentPlayer.position === 36){
-           showModal();
+           this.showModal();
         }
 
         //Setting players position
@@ -349,6 +357,10 @@ th{
   background-color: #DF3A01;
   color: white;
 /**  border: 5px solid #cacaca; **/
+}
+
+winner-modal {
+  z-index: 1;
 }
 
 </style>
