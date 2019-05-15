@@ -15,7 +15,7 @@ export default {
   data(){
     return{
       lastMove: "",
-      diceRoll: null,
+      diceRoll: 1,
       moveHistory: [],
       ladder: false,
       snake: false,
@@ -38,6 +38,7 @@ export default {
         this.ladder = false
       }
       this.moveHistory.push(this.lastMove)
+      this.diceRoll = 1
     },
     
     checkArray: function(player){
