@@ -4,22 +4,22 @@
       <span class="body">
         It's now {{currentPlayer}}'s turn!
       </span>
-      
+
       <span class="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
       </span>
     </div>
   </div>
-  
+
 </template>
 
 <script>
 
 export default {
   name: 'modal',
-  
+
   props: ['currentPlayer'],
-  
+
   methods: {
     close() {
       this.$emit('close');
@@ -44,7 +44,7 @@ export default {
 }
 
 .modal {
-  background: #FFFFFF;
+  background: yellow;
   border: 1px solid #4AAE9B;
   border-radius: 2px;
 }
