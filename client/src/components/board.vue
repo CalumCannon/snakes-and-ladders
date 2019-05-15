@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="">
+  <div class="">
     <canvas id="myCanvas" width="600" height="600"></canvas>
     <img id="boardOverlay" src="@/assets/snakesladders.png" alt="">
     <div class="table-container">
@@ -55,6 +56,8 @@
 </table>
     </div>
   </div>
+  <winner-modal v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
+  </div>
 </template>
 
 <script>
@@ -92,6 +95,11 @@ export default {
     })
 
   },
+
+  components: {
+    'winner-modal': Modal
+  },
+
   methods:{
 
     showModal: function(){
@@ -100,6 +108,70 @@ export default {
 
     hideModal: function(){
       this.visibleModal = false
+    },
+
+    renderCanvas(){
+
+      //Canvas init
+      const canvas = document.querySelector('#myCanvas');
+      const ctx =  canvas.getContext("2d");
+      const renderer = createRenderer(canvas,ctx);
+      let playeronsnakesladders = false;
+
+      //Clear canvas
+      //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+
+      if(!this.currentPlayer.reachedTarget()){
+        //Delayed player move
+        setTimeout(() => {
+          this.currentPlayer.moveForward();
+          this.renderCanvas();
+        }, 500);
+
+      }else{
+
+        let newpos = this.snakesladders.checkSquare(this.currentPlayer.position);
+
+
+        //Player landed on snake
+        if(newpos < this.currentPlayer.position){
+          renderer.playerSlideAnimationUpdate(this.currentPlayer,newpos);
+          eventBus.$emit('player-on-snake', this.currentPlayer);
+          playeronsnakesladders = true;
+        }
+        //Player landed on ladder
+        if(newpos > this.currentPlayer.position){
+          renderer.playerSlideAnimationUpdate(this.currentPlayer,newpos);
+          eventBus.$emit('player-on-ladder', this.currentPlayer);
+          playeronsnakesladders = true;
+        }
+
+        //Player has won
+        if(this.currentPlayer.position === 36){
+           this.showModal();
+        }
+
+        //Setting players position
+        this.currentPlayer.position = newpos;
+
+        eventBus.$emit('player-turn-completed', this.currentPlayer);
+
+        //Finding next player
+        let nextPlayer = this.returnNextPlayer();
+        if(nextPlayer == null){
+          console.error("NEXT PLAYER NULL");
+        }else{
+        eventBus.$emit('next-player',nextPlayer);
+        }
+
+      }
+      if(!playeronsnakesladders){
+
+        this.renderPlayers();
+
+      }
     },
 
     initPlayerObjects(){
@@ -113,7 +185,7 @@ export default {
       this.currentPlayer = this.returnCurrentPlayer();
 
       //End game checks
-      if(this.currentPlayer.position + randomNum < 36){
+      if(this.currentPlayer.position + randomNum <= 36){
         this.currentPlayer.setTargetPositon(randomNum);
         this.playerMoveUpdate();
       }else{
@@ -175,7 +247,7 @@ export default {
 
         //Player has won
         if(this.currentPlayer.position === 36){
-           showModal();
+           this.showModal();
         }
 
         //Setting players position
@@ -283,6 +355,10 @@ th{
   background-color: #DF3A01;
   color: white;
 /**  border: 5px solid #cacaca; **/
+}
+
+winner-modal {
+  z-index: 1;
 }
 
 </style>
