@@ -6,6 +6,8 @@ const Player = function(name, img, wins, losses){
   this.targetPosition = 1;
   this.wins = wins;
   this.losses = losses;
+  this.xpos = 0;
+  this.ypos = 0;
 }
 
 Player.prototype.setTargetPositon = function(targetPosition){
@@ -39,5 +41,12 @@ Player.prototype.moveForward = function(){
   this.position += 1;
 
 }
+
+Player.prototype.setCoordinates = function(xpos,ypos){
+  this.xpos = xpos;
+  this.ypos = ypos;
+}
+
+
 
 module.exports = Player;

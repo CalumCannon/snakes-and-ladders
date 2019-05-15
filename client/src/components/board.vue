@@ -86,64 +86,74 @@ export default {
 
     //Dice rolled event
     eventBus.$on('dice-rolled', (randomNum) => {
-
      this.diceRolled(randomNum);
     })
 
   },
   methods:{
+
     renderCanvas(){
 
       //Canvas init
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
+      let playeronsnakesladders = false;
 
       //Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
 
       if(!this.currentPlayer.reachedTarget()){
         //Delayed player move
         setTimeout(() => {
           this.currentPlayer.moveForward();
           this.renderCanvas();
-        }, 1000);
+        }, 500);
 
       }else{
 
-        console.log("PLAYER REACHED TARGET ", this.currentPlayer);
-
         let newpos = this.snakesladders.checkSquare(this.currentPlayer.position);
+
 
         //Player landed on snake
         if(newpos < this.currentPlayer.position){
+          renderer.playerSlideAnimationUpdate(this.currentPlayer,newpos);
           eventBus.$emit('player-on-snake', this.currentPlayer);
+          playeronsnakesladders = true;
         }
+        //Player landed on ladder
         if(newpos > this.currentPlayer.position){
+          renderer.playerSlideAnimationUpdate(this.currentPlayer,newpos);
           eventBus.$emit('player-on-ladder', this.currentPlayer);
+          playeronsnakesladders = true;
         }
-        if(this.currentPlayer.position === 36){
-           showModal();}
 
-        this.currentPlayer.targetPosition = newpos;
+        //Player has won
+        if(this.currentPlayer.position === 36){
+           showModal();
+        }
+
+        //Setting players position
         this.currentPlayer.position = newpos;
 
-        //Change player target
-
-        //ERROR: this is not triggering when dice roll == 1
         eventBus.$emit('player-turn-completed', this.currentPlayer);
-        //Check this
+
+        //Finding next player
         let nextPlayer = this.returnNextPlayer();
         if(nextPlayer == null){
-          console.log("ERROR NEXT PLAYER NULL");
+          console.error("NEXT PLAYER NULL");
         }else{
         eventBus.$emit('next-player',nextPlayer);
         }
 
       }
+      if(!playeronsnakesladders){
 
-      this.renderPlayers();
+        this.renderPlayers();
 
+      }
     },
 
     initPlayerObjects(){
@@ -158,7 +168,9 @@ export default {
 
       this.currentPlayer.setTargetPositon(randomNum);
 
-      this.renderCanvas();
+      this.playerMoveUpdate();
+
+      //this.renderCanvas();
     },
 
     returnCurrentPlayer(){
@@ -180,10 +192,80 @@ export default {
       return this.players[nextIndex];
     },
 
+    playerMoveUpdate(){
+
+      const canvas = document.querySelector('#myCanvas');
+      const ctx =  canvas.getContext("2d");
+      const renderer = createRenderer(canvas,ctx);
+      let playeronsnakesladders = false;
+
+      if(!this.currentPlayer.reachedTarget()){
+        //Delayed player move
+        setTimeout(() => {
+          this.currentPlayer.moveForward();
+          this.playerMoveUpdate();
+          this.renderPlayers();
+          //this.renderCanvas();
+        }, 500);
+
+      }else{
+        //CHECK IF ON LADDERS OR SNAKES
+        let newpos = this.snakesladders.checkSquare(this.currentPlayer.position);
+
+
+        //Player landed on snake
+        if(newpos < this.currentPlayer.position){
+          renderer.playerSlideAnimationUpdate(this.currentPlayer,newpos);
+          eventBus.$emit('player-on-snake', this.currentPlayer);
+          playeronsnakesladders = true;
+        }
+        //Player landed on ladder
+        if(newpos > this.currentPlayer.position){
+          renderer.playerSlideAnimationUpdate(this.currentPlayer,newpos);
+          eventBus.$emit('player-on-ladder', this.currentPlayer);
+          playeronsnakesladders = true;
+        }
+
+        //Player has won
+        if(this.currentPlayer.position === 36){
+           this.showModal();
+        }
+
+        //Setting players position
+        this.currentPlayer.position = newpos;
+
+        if(!playeronsnakesladders){
+        this.finishTurn();
+      }else{
+        setTimeout(() => {
+        this.finishTurn();
+          //this.renderCanvas();
+        }, 500);
+      }
+
+      }
+    },
+
+    finishTurn(){
+      //EMIT PLAYER TURN FINISHED
+      eventBus.$emit('player-turn-completed', this.currentPlayer);
+
+      //Finding next player
+      let nextPlayer = this.returnNextPlayer();
+      if(nextPlayer == null){
+        console.error("NEXT PLAYER NULL");
+      }else{
+      eventBus.$emit('next-player',nextPlayer);
+      }
+    },
+
     renderPlayers(){
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
       var i=0;
       this.players.forEach((player) => {
         renderer.renderPlayer(player, i*10);
