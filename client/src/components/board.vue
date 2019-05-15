@@ -309,7 +309,6 @@ export default {
   bottom: 70px;
   left: 20px;
   right: 0;
-  border: 2px solid pink;
   width: 600px;
   z-index: 0;
 }
@@ -328,7 +327,6 @@ export default {
   bottom: 70px;
   left: 20px;
   right: 0;
-  border: 2px solid pink;
   z-index: 1;
 }
 
@@ -349,7 +347,7 @@ th{
 
 .even{
   background-color: #DF3A01;
-  color: green;
+  color: white;
 /**  border: 5px solid #cacaca; **/
 }
 
