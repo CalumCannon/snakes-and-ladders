@@ -30,11 +30,14 @@ const createRenderer = function(canvasElement, context) {
         xPos = 500 - xPos
       }
 
+      //Save coordinates for sliding animation
       player.setCoordinates(xPos,yPos);
+
+      //Render player
       ctx.drawImage(player.avatar,xPos,  yPos);
 
+      //Render Name
       let name = player.nickname;
-
       ctx.font = "bold 30px Arial";
       ctx.fillStyle = "white";
       ctx.textAlign = "left";
@@ -61,12 +64,19 @@ const createRenderer = function(canvasElement, context) {
 
     lerp (start, end, amt){
     console.log("LERPING");
-    return (1-amt)*start+amt*end
+    //DOWN / LEFT
+    if(end < start){
+      return start -= amt;
+    }
+    if(end > start){
+      return start += amt;
+    }
+    //return (1-amt)*start+amt*end
     },
 
     distanceCheck(player, tx, ty){
       var dist = Math.sqrt( Math.pow((player.xpos-tx), 2) + Math.pow((player.ypos-ty), 2) );
-      if(dist < 0.5){
+      if(dist < 50){
         return true;
       }
       console.log(dist);
@@ -98,22 +108,34 @@ const createRenderer = function(canvasElement, context) {
         xPos = 500 - xPos
       }
 
-      player.xpos = this.lerp(player.xpos, xPos, 0.1);
-      player.ypos = this.lerp(player.ypos, yPos, 0.1);
+      ctx.clearRect(player.xpos, player.ypos,48, 48);
+
+      player.xpos = this.lerp(player.xpos, xPos, 30);
+      player.ypos = this.lerp(player.ypos, yPos, 30);
 
       //Render player
-      ctx.clearRect(0,0,canvas.height, canvas.width);
+      //Clear only player bit?
+
       ctx.drawImage(player.avatar,  player.xpos,    player.ypos);
+      //Render Name
+      let name = player.nickname;
+      ctx.font = "bold 30px Arial";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "left";
+      ctx.fillText(name, xPos,yPos + 50);
+      ctx.fillStyle = "white";
+      ctx.strokeText(name, xPos, yPos + 50);
 
       console.log("SLIDING TO: ", xPos, " FROM: ", player.xpos);
 
       //Call this until at targetPosition
       if(this.distanceCheck(player,xPos, yPos)){
-
+        console.log("NEAR SQUARE");
+      }else{
+        //Continue animation
         setTimeout(() => {
           this.playerSlideAnimationUpdate(player, t);
-
-        }, 500);
+        }, 5);
       }
     },
 

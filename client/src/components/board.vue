@@ -73,7 +73,8 @@ export default {
       currentPlayer : "",
       players : [],
       snakesladders : new SnakesLadders(),
-      visibleModal : false
+      visibleModal : false,
+
     }
   },
   mounted(){
@@ -101,70 +102,6 @@ export default {
       this.visibleModal = false
     },
 
-    renderCanvas(){
-
-      //Canvas init
-      const canvas = document.querySelector('#myCanvas');
-      const ctx =  canvas.getContext("2d");
-      const renderer = createRenderer(canvas,ctx);
-      let playeronsnakesladders = false;
-
-      //Clear canvas
-      //ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
-
-      if(!this.currentPlayer.reachedTarget()){
-        //Delayed player move
-        setTimeout(() => {
-          this.currentPlayer.moveForward();
-          this.renderCanvas();
-        }, 500);
-
-      }else{
-
-        let newpos = this.snakesladders.checkSquare(this.currentPlayer.position);
-
-
-        //Player landed on snake
-        if(newpos < this.currentPlayer.position){
-          renderer.playerSlideAnimationUpdate(this.currentPlayer,newpos);
-          eventBus.$emit('player-on-snake', this.currentPlayer);
-          playeronsnakesladders = true;
-        }
-        //Player landed on ladder
-        if(newpos > this.currentPlayer.position){
-          renderer.playerSlideAnimationUpdate(this.currentPlayer,newpos);
-          eventBus.$emit('player-on-ladder', this.currentPlayer);
-          playeronsnakesladders = true;
-        }
-
-        //Player has won
-        if(this.currentPlayer.position === 36){
-           showModal();
-        }
-
-        //Setting players position
-        this.currentPlayer.position = newpos;
-
-        eventBus.$emit('player-turn-completed', this.currentPlayer);
-
-        //Finding next player
-        let nextPlayer = this.returnNextPlayer();
-        if(nextPlayer == null){
-          console.error("NEXT PLAYER NULL");
-        }else{
-        eventBus.$emit('next-player',nextPlayer);
-        }
-
-      }
-      if(!playeronsnakesladders){
-
-        this.renderPlayers();
-
-      }
-    },
-
     initPlayerObjects(){
       this.selectedPlayers.forEach((player) => {
         this.players.push(new Player(player.name, player.avatar,player.wins, player.losses));
@@ -172,9 +109,10 @@ export default {
     },
 
     diceRolled(randomNum){
-      //Do end game checks here
+      //Set current player
       this.currentPlayer = this.returnCurrentPlayer();
 
+      //End game checks
       if(this.currentPlayer.position + randomNum < 36){
         this.currentPlayer.setTargetPositon(randomNum);
         this.playerMoveUpdate();
@@ -182,8 +120,6 @@ export default {
         this.finishTurn();
       }
 
-
-      //this.renderCanvas();
     },
 
     returnCurrentPlayer(){
@@ -206,25 +142,23 @@ export default {
     },
 
     playerMoveUpdate(){
-
       const canvas = document.querySelector('#myCanvas');
       const ctx =  canvas.getContext("2d");
       const renderer = createRenderer(canvas,ctx);
+
       let playeronsnakesladders = false;
 
       if(!this.currentPlayer.reachedTarget()){
         //Delayed player move
         setTimeout(() => {
           this.currentPlayer.moveForward();
-          this.playerMoveUpdate();
           this.renderPlayers();
-          //this.renderCanvas();
+          this.playerMoveUpdate();
         }, 500);
 
       }else{
         //CHECK IF ON LADDERS OR SNAKES
         let newpos = this.snakesladders.checkSquare(this.currentPlayer.position);
-
 
         //Player landed on snake
         if(newpos < this.currentPlayer.position){
@@ -251,9 +185,9 @@ export default {
         this.finishTurn();
       }else{
         setTimeout(() => {
+        //SLIDE ANIMATION?
         this.finishTurn();
-          //this.renderCanvas();
-        }, 500);
+      }, 1300);
       }
 
     }

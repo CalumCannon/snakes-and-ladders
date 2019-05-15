@@ -12,18 +12,6 @@ const Player = function(name, img, wins, losses){
 
 Player.prototype.setTargetPositon = function(targetPosition){
   this.targetPosition = this.position + targetPosition;
-
-  this.moveForward();
-
-  //Lower Limit
-  if(this.position < 1){
-    this.position = 1;
-  }
-  //Upper Limit
-  if(this.position > 36){
-    this.position = 36;
-  }
-
 }
 
 Player.prototype.reachedTarget = function(){
