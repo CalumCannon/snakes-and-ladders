@@ -56,7 +56,8 @@
         </table>
       </div>
     </div>
-    <winner-modal v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
+  </div>
+  <winner-modal style="z-index: 999;" v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
   </div>
 </template>
 
@@ -360,10 +361,6 @@ th{
   background-color: #DF3A01;
   color: white;
   /**  border: 5px solid #cacaca; **/
-}
-
-winner-modal {
-  z-index: 1;
 }
 
 </style>
