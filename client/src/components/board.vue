@@ -56,9 +56,9 @@
         </table>
       </div>
     </div>
+      <winner-modal style="z-index: 999;" v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
   </div>
-  <winner-modal style="z-index: 999;" v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
-  </div>
+</div>
 </template>
 
 <script>
@@ -109,7 +109,7 @@ export default {
     
     hideModal: function(){
       this.visibleModal = false
-      router.push({path: '/'})
+      router.push({name: 'welcome', path: '/'})
     },
     
     renderCanvas(){
@@ -158,7 +158,7 @@ export default {
         //Setting players position
         this.currentPlayer.position = newpos;
         
-        if(this.currentPlayer.position === 36){
+        if(this.currentPlayer.position !== 36){
           eventBus.$emit('player-turn-completed', this.currentPlayer);
         }
         
