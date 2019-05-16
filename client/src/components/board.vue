@@ -56,7 +56,7 @@
 </table>
     </div>
   </div>
-  <winner-modal v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
+  <winner-modal style="z-index: 999;" v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
   </div>
 </template>
 
