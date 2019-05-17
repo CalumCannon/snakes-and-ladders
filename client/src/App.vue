@@ -4,7 +4,7 @@
 
     <button type="button" name="button" v-on:click="visibleModal = true">Show Leaderboard</button>
 
-    <leader-modal v-show="visibleModal" v-on:close="hideModal"/>
+    <leader-modal style="z-index: 500;" v-show="visibleModal" v-on:close="hideModal"/>
   </div>
 </template>
 

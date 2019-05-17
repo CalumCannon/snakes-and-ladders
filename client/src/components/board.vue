@@ -166,10 +166,9 @@ export default {
         let nextPlayer = this.returnNextPlayer();
         if(nextPlayer == null){
           console.error("NEXT PLAYER NULL");
-        }else{
-          if(this.currentPlayer.position !== 36){
-            eventBus.$emit('next-player',nextPlayer)
-          }
+        }else if(this.currentPlayer.position !== 36){
+            eventBus.$emit('next-player', nextPlayer)
+          
         }
         
       }
@@ -280,7 +279,7 @@ export default {
       let nextPlayer = this.returnNextPlayer();
       if(nextPlayer == null){
         console.error("NEXT PLAYER NULL");
-      }else{
+      }else if(this.currentPlayer.position !== 36){
         eventBus.$emit('next-player',nextPlayer);
       }
     },
@@ -363,8 +362,8 @@ th{
 /**  border: 5px solid #cacaca; **/
 }
 
-winner-modal {
+/* winner-modal {
   z-index: 5;
-}
+} */
 
 </style>
