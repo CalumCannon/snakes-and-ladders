@@ -4,26 +4,36 @@
       <span class="body">
         It's now {{currentPlayer}}'s turn!
       </span>
-
+      
       <span class="footer">
-        <button type="button" name="button" v-on:click="close">OK</button>
+        <button id="focus" type="button" name="button" v-on:click="close">OK</button>
       </span>
     </div>
   </div>
-
+  
 </template>
 
 <script>
 
 export default {
   name: 'modal',
-
+  
   props: ['currentPlayer'],
-
+  
   methods: {
     close() {
       this.$emit('close');
+    },
+    
+    closeModal(e){
+      if(e.key === 'Enter'){
+        this.close()
+      }
     }
+  },
+  
+  mounted(){
+      document.addEventListener('keydown', this.closeModal);
   }
 }
 </script>

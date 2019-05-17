@@ -109,7 +109,7 @@ export default {
     
     hideModal: function(){
       this.visibleModal = false
-      router.push({name: 'welcome', path: '/'})
+      router.push({name: 'welcome'})
     },
     
     renderCanvas(){
