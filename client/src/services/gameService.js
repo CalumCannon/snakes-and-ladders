@@ -17,5 +17,13 @@ export default {
     return fetch(baseURL + id,{
       method:'DELETE'
     })
+  },
+  updatePlayer(id, details){
+    return fetch(baseURL + id,{
+      method: 'PUT',
+      body: JSON.stringify(details),
+      headers: { 'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
   }
 };

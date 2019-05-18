@@ -25,13 +25,13 @@
           </tbody>
         </table>
       </span>
-
+      
       <span class="footer">
         <button type="button" name="button" v-on:click="close">OK</button>
       </span>
     </div>
   </div>
-
+  
 </template>
 
 <script>
@@ -39,24 +39,26 @@ import GameService from '@/services/gameService.js';
 
 export default {
   name: 'leader-modal',
-
+  
   data(){
     return{
       databasePlayers: []
     }
   },
-
+  
   methods: {
     close() {
       this.$emit('close');
     },
-
+    
     fetchPlayers(){
       GameService.getPlayers()
-      .then((players) => this.databasePlayers = players)
-    }
+      .then((players) => this.databasePlayers = players.sort(function(a, b){
+        return b.wins - a.wins
+      })
+    )}
   },
-
+  
   mounted(){
     this.fetchPlayers();
   }

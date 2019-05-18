@@ -1,4 +1,5 @@
-const Player = function(name, img, wins, losses){
+const Player = function(id, name, img, wins, losses){
+  this.id = id;
   this.nickname = name;
   this.avatar = new Image();
   this.avatar.src = img;

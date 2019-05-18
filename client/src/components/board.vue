@@ -56,7 +56,7 @@
         </table>
       </div>
     </div>
-      <winner-modal style="z-index: 999;" v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
+    <winner-modal style="z-index: 999;" v-show="visibleModal" :winner="currentPlayer" v-on:close="hideModal"/>
   </div>
 </div>
 </template>
@@ -67,6 +67,7 @@ import { eventBus } from '@/main.js';
 import Player from '@/services/player.js';
 import SnakesLadders from '@/services/snakesladders.js';
 import Modal from '@/components/winGameModal.vue';
+import GameService from '@/services/gameService';
 
 export default {
   name: 'board',
@@ -98,7 +99,8 @@ export default {
   },
   
   components: {
-    'winner-modal': Modal
+    'winner-modal': Modal,
+    GameService
   },
   
   methods:{
@@ -109,7 +111,23 @@ export default {
     
     hideModal: function(){
       this.visibleModal = false
-      this.$router.push('/')
+      this.updateWinner()
+    },
+    
+    updateWinner(){
+      let wins = {wins: this.currentPlayer.wins += 1}
+      GameService.updatePlayer(this.currentPlayer.id, wins)
+      .then(res => this.updatePlayers())
+    },
+    
+    updatePlayers(){
+      const index = this.players.indexOf(this.currentPlayer)
+      this.players.splice(index, 1)
+      this.players.forEach((player) => {
+        let loss = {losses: player.losses += 1}
+        GameService.updatePlayer(player.id, loss)
+        .then(res => this.$router.push('/'))
+      })
     },
     
     renderCanvas(){
@@ -167,7 +185,7 @@ export default {
         if(nextPlayer == null){
           console.error("NEXT PLAYER NULL");
         }else if(this.currentPlayer.position !== 36){
-            eventBus.$emit('next-player', nextPlayer)
+          eventBus.$emit('next-player', nextPlayer)
           
         }
         
@@ -181,7 +199,7 @@ export default {
     
     initPlayerObjects(){
       this.selectedPlayers.forEach((player) => {
-        this.players.push(new Player(player.name, player.avatar,player.wins, player.losses));
+        this.players.push(new Player(player._id, player.name, player.avatar,player.wins, player.losses));
       })
     },
     
@@ -359,11 +377,11 @@ th{
 .even{
   background-color: #DF3A01;
   color: white;
-/**  border: 5px solid #cacaca; **/
+  /**  border: 5px solid #cacaca; **/
 }
 
 /* winner-modal {
-  z-index: 5;
+z-index: 5;
 } */
 
 </style>
