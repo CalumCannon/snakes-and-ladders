@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="background">
-    <div class="modal" role="dialog" aria-labelledby="popup">
+    <div style="z-index: 200;" class="modal" role="dialog" aria-labelledby="popup">
       <span class="header">
         <h3>LEADERBOARD</h3>
       </span>
